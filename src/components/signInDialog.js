@@ -1,5 +1,16 @@
 import React from 'react';
 
+function handleChange(event) {
+    event.preventDefault();
+    if(document.getElementById('password').value==="" || document.getElementById('email').value==="")
+    {
+        alert("email and password cannot be empty");
+    }
+    else {
+        let email=document.getElementById('email').value;
+        let password=document.getElementById('password').value;
+    }
+}
 
 function SignInDialog() {
     return (
@@ -16,8 +27,8 @@ function SignInDialog() {
                         <input type="password" id="password" name="password" className="mt-1 px-4 py-2 w-full border rounded-md" />
                     </div>
                     <div className="flex justify-between items-center">
-                        <button type="button" className="text-sm text-blue-600">Forgot Password?</button>
-                        <button type="submit" className="bg-blue-500 text-white px-6 py-2 rounded-md">Sign In</button>
+                    <a href="/forgotpassword" className="text-blue-500 font-semibold pr-40">Forgot Password?</a>
+                        <button onClick={(e) => handleChange(e)} className="bg-blue-500 text-white px-6 py-2 rounded-md">Sign In</button>
                     </div>
                 </form>
                 <div className="text-center">

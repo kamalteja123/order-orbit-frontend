@@ -1,4 +1,5 @@
 import React from "react";
+import Logo from "../assests/Logo.jpg";
 
 function Header() {
   return (
@@ -6,11 +7,11 @@ function Header() {
       <nav className="container mx-auto px-6 md:px-0 flex items-center justify-between">
         <a className="text-xl font-bold text-black no-underline" href="#">
           <img
-            src="C:\DabbaReact\example\public\assests\Logo.jpg"
-            className="inline-block h-6 align-top"
-            alt="not w"
+            src={Logo}
+            className="inline-block h-8 align-top pr-1 rounded-md"
+            alt="not working"
           />
-          example
+          Project
         </a>
         <ul className="flex items-center">
           <li className="mr-6 py-5 ">
