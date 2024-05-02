@@ -1,13 +1,22 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import Header from './components/header';
-import './App.css';
+import Home from './pages/home';
+import Signin from './pages/signin';
+import Signup from './pages/signup';
+import {BrowserRouter, Routes, Route} from 'react-router-dom';
 
 function App() {
   return (
-    <div className="App">
-      <Header/>
+    <div>
+      <BrowserRouter>
+        <Routes>
+          <Route index element={<Home/>}/>
+          <Route path="/home" element={<Home/>}/>
+          <Route path="/signin" element={<Signin/>}/>
+          <Route path="/signup" element={<Signup/>}/>
+        </Routes>
+      </BrowserRouter>
     </div>
+    
   );
 }
 
