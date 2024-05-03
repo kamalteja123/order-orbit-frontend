@@ -5,12 +5,11 @@ import Footer from '../components/footer';
 
 
 
-
 function ForgotPassword(){
     return (
     <div>
       <Header/>
-      <ForgotPassDialog/> 
+      <ForgotPassDialog />           
       <Footer/>
     </div>
     );
