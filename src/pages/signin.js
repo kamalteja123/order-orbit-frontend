@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "../components/header";
 import Dummy from "../components/dummy";
-import SignInDialog from "../components/signInDialog";
+import SignInDialog from "../components/signinDialog";
 import Footer from "../components/footer";
 
 function Signin() {
