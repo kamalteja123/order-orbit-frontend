@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import Card from 'react-bootstrap/Card';
+import Card from '@mui/joy/Card';
+import CardCover from '@mui/joy/CardCover';
+import CardContent from '@mui/joy/CardContent';
+import Typography from '@mui/joy/Typography';
+import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
 
 function YourComp() {
   const [userData, setUserData] = useState([]);
@@ -18,17 +22,35 @@ function YourComp() {
   return (
     <div className='pt-16 text-center'>
       <button className='bg-blue-500 text-white px-4 py-1 rounded-md' onClick={handleClick}>Fetch Data</button>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4 ">
         {userData.map(user => (
-          <Card key={user.email} className='mx-2' >
-          <Card.Img variant="top" src={user.image} alt='not found'/>
-            <Card.Body className='border-2 rounded-lg'>
-              <Card.Title className='border-b '>{user.firstName} {user.lastName}</Card.Title>
-              <Card.Text>Email: {user.email}</Card.Text>
-              <Card.Text className='border-t'>password: {user.password}</Card.Text>
-              {/* You may add more user details here */}
-            </Card.Body>
-          </Card>
+          <Card sx={{ minHeight: '280px', width: 320 }}>
+          <CardCover>
+            <img
+              src={user.image}
+              srcSet="https://images.unsplash.com/photo-1542773998-9325f0a098d7?auto=format&fit=crop&w=320&dpr=2 2x"
+              loading="lazy"
+              alt=""
+            />
+          </CardCover>
+          <CardCover
+            sx={{
+              background:
+                'linear-gradient(to top, rgba(0,0,0,0.4), rgba(0,0,0,0) 200px), linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0) 300px)',
+            }}
+          />
+          <CardContent sx={{ justifyContent: 'flex-end' }}>
+            <Typography level="title-lg" textColor="#fff" className="text-left">
+              {user.firstName} {user.lastName}
+            </Typography>
+            <Typography
+              startDecorator={<LocationOnRoundedIcon />}
+              textColor="neutral.300"
+            >
+              {user.emai}
+            </Typography>
+          </CardContent>
+        </Card>
         ))}
       </div>
     </div>

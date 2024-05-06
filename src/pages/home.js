@@ -4,6 +4,7 @@ import Dummy from '../components/dummy';
 import YourComp from '../components/anotherDummy';
 import Footer from '../components/footer';
 import "../App.css";
+import GradientCover from "../components/Card";
 
 function Home(){
     return (

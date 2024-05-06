@@ -7,3 +7,9 @@
 .Footer{
     margin-top: auto;
 }
+
+.test{
+    margin-left: .75rem;
+    margin-right: .75rem;
+    width: 98%;
+}
