@@ -1,6 +1,6 @@
 import React from 'react';
 
-function SignUpDialog() {
+function UserSignUpDialog() {
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50">
             <div className="bg-white p-8 rounded-lg w-100">
@@ -39,4 +39,4 @@ function SignUpDialog() {
     );
 }
 
-export default SignUpDialog;
+export default UserSignUpDialog;

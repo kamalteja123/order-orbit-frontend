@@ -1,17 +1,18 @@
 import React from "react";
 import Header from "../components/header";
 import Dummy from "../components/dummy";
-import SignInDialog from "../components/signinDialog";
+import UserSignInDialog from "../components/UserSigninDialog";
 import Footer from "../components/footer";
+import CloseIcon from "../components/closeIcon";
 
-function Signin() {
+function UserSignin() {
   return (
     <div>
       <Header />
-      <SignInDialog />
-      <Footer />
+      <UserSignInDialog />
+      <CloseIcon />
     </div>
   );
 }
 
-export default Signin;
+export default UserSignin;

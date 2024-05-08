@@ -1,7 +1,7 @@
 import React from 'react';
 import Home from './pages/home';
-import Signin from './pages/signin';
-import Signup from './pages/signup';
+import UserSignin from './pages/userSignin';
+import UserSignup from './pages/userSignup';
 import ForgotPassword from './pages/forgotPass';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 
@@ -12,8 +12,8 @@ function App() {
         <Routes>
           <Route index element={<Home/>}/>
           <Route path="/home" element={<Home/>}/>
-          <Route path="/signin" element={<Signin/>}/>
-          <Route path="/signup" element={<Signup/>}/>
+          <Route path="/usersignin" element={<UserSignin/>}/>
+          <Route path="/usersignup" element={<UserSignup/>}/>
           <Route path="/forgotpassword" element={<ForgotPassword/>}/>
         </Routes>
       </BrowserRouter>

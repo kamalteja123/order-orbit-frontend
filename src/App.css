@@ -1,15 +1,29 @@
-.App{
+.App {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
 
-.Footer{
+.Footer {
     margin-top: auto;
 }
 
-.test{
+.test {
     margin-left: .75rem;
     margin-right: .75rem;
     width: 98%;
+}
+
+.LogoFont {
+    font-family: "Borel", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.material-symbols-outlined {
+    font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24
 }

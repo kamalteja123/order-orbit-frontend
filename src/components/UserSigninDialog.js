@@ -1,4 +1,5 @@
 import React from 'react';
+import CloseIcon from './closeIcon';
 
 function handleChange(event) {
     event.preventDefault();
@@ -13,9 +14,10 @@ function handleChange(event) {
     }
 }
 
-function SignInDialog() {
+function UserSignInDialog() {
     return (
-        <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50">
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-40">
+            <CloseIcon/>
             <div className="bg-white p-8 rounded-lg w-100">
                 <h2 className="text-xl font-semibold mb-4">Sign In</h2>
                 <form className="mb-4">
@@ -41,4 +43,4 @@ function SignInDialog() {
     );
 }
 
-export default SignInDialog;
+export default UserSignInDialog;
