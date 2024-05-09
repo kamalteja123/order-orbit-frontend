@@ -19,7 +19,7 @@ function UserSignInDialog() {
         <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-40">
             <CloseIcon/>
             <div className="bg-white p-8 rounded-lg w-100">
-                <h2 className="text-xl font-semibold mb-4">Sign In</h2>
+                <h2 className="text-xl font-semibold mb-4">User Sign In</h2>
                 <form className="mb-4">
                     <div className="mb-4">
                         <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>

@@ -16,7 +16,7 @@ function Home(){
       {/* <Dummy/> */}
       <Welcome/>
       {/* <YourComp/> */}
-      <SearchBox/>
+      {/* <SearchBox/> */}
       {/* <AnotherDummy/> */}
       <Footer/>
     </div>

@@ -1,20 +1,27 @@
 import React, { useState } from "react";
 import Logo from "../assests/Logo.png";
+import { useNavigate } from "react-router-dom";
 
 function UserNavbar() {
   const [previousOrder, setPreviousOrder] = useState(false);
+  const navigate = useNavigate();
   function handleclick() {
     if (previousOrder) {
-        document.getElementById("welcome").classList.remove("invisible");
-        document.getElementById("searchbox").classList.remove("invisible");
-        document.getElementById("comp").classList.add("hidden");        
+    document.getElementById("previousorder").innerText="Previous Orders";
+      document.getElementById("welcome").classList.remove("invisible");
+      document.getElementById("searchbox").classList.remove("invisible");
+      document.getElementById("comp").classList.add("hidden");
       setPreviousOrder(false);
     } else {
+        document.getElementById("previousorder").innerText="Dashboard";
       document.getElementById("welcome").classList.add("invisible");
       document.getElementById("searchbox").classList.add("invisible");
       document.getElementById("comp").classList.remove("hidden");
       setPreviousOrder(true);
     }
+  }
+  function handlelogout() {
+    navigate("/home");
   }
   return (
     <div className="fixed top-3 rounded-2xl z-40 w-full text h-12 bg-gray-200">
@@ -32,9 +39,9 @@ function UserNavbar() {
             welllcome! user_name
           </div>
           <div className="mr-6">
-            <button onClick={handleclick}>previous_orders</button>
+            <button onClick={handleclick} id="previousorder" className="bg-blue-500 text-white px-2 py-0 rounded-md">previous_orders</button>
           </div>
-          <div className="mr-7">logout</div>
+          <button onClick={handlelogout}>log out</button>
         </div>
       </div>
     </div>
