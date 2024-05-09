@@ -1,10 +1,10 @@
 import React from "react";
 
-function UserSignUpDialog() {
+function RestaurantSignUpDialog() {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50">
       <div className="bg-white p-8 rounded-lg w-100">
-        <h2 className="text-xl font-semibold mb-4">User Sign Up</h2>
+        <h2 className="text-xl font-semibold mb-4">Restaurant Sign Up</h2>
         <form className="mb-4">
           <div className="mb-4">
             <label
@@ -20,12 +20,12 @@ function UserSignUpDialog() {
               placeholder="Enter your Name"
               className="mt-1 px-4 py-2 w-full border rounded-md"
             />
-          </div>
-          {/* <div className="mb-4 pl-2">
+
+            {/* <div className="mb-4 pl-2">
                             <label htmlFor="name" className="block text-sm font-medium text-gray-700">Last Name</label>
                             <input type="text" id="lastname" name="lastname" className="mt-1 px-4 py-2 w-full border rounded-md" />
                         </div> */}
-
+          </div>
           <div className="mb-4">
             <label
               htmlFor="email"
@@ -38,6 +38,22 @@ function UserSignUpDialog() {
               id="email"
               name="email"
               placeholder="Enter your email"
+              className="mt-1 px-4 py-2 w-full border rounded-md"
+            />
+          </div>
+
+          <div className="mb-4">
+            <label
+              htmlFor="address"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Address
+            </label>
+            <input
+              type="address"
+              id="address"
+              name="address"
+              placeholder="Enter Address"
               className="mt-1 px-4 py-2 w-full border rounded-md"
             />
           </div>
@@ -57,6 +73,7 @@ function UserSignUpDialog() {
               className="mt-1 px-4 py-2 w-full border rounded-md"
             />
           </div>
+
           <div className="flex flex-row">
             <div className="mb-4 pr-2">
               <label
@@ -89,7 +106,6 @@ function UserSignUpDialog() {
               />
             </div>
           </div>
-
           <button
             type="submit"
             className="bg-blue-500 text-white px-6 py-2 rounded-md w-full"
@@ -108,4 +124,4 @@ function UserSignUpDialog() {
   );
 }
 
-export default UserSignUpDialog;
+export default RestaurantSignUpDialog;

@@ -7,6 +7,15 @@ import UserDash from './pages/userDashboard';
 import RestaurantSignin from './pages/restaurantSignIn';
 import RestaurantDash from './pages/restaurantDashboard';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import React from "react";
+import Home from "./pages/home";
+import UserSignin from "./pages/userSignin";
+import UserSignup from "./pages/userSignup";
+import ForgotPassword from "./pages/forgotPass";
+import UserDash from "./pages/userDashboard";
+import RestaurantSignin from "./pages/restaurantSignIn";
+import RestaurantSignup from "./pages/restaurantSignup";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
@@ -24,7 +33,6 @@ function App() {
         </Routes>
       </BrowserRouter>
     </div>
-    
   );
 }
 
