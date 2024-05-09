@@ -1,5 +1,5 @@
 import React from "react";
-import Header from '../components/header';
+import Navbar from '../components/navbar';
 import ForgotPassDialog from '../components/forgotPassDialog';
 import Footer from '../components/footer';
 
@@ -8,7 +8,7 @@ import Footer from '../components/footer';
 function ForgotPassword(){
     return (
     <div>
-      <Header/>
+      <Navbar/>
       <ForgotPassDialog />           
       <Footer/>
     </div>

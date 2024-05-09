@@ -3,7 +3,7 @@ import Logo from "../assests/Logo.png";
 import SignInMenu from "./signinMenu";
 import SignUpMenu from "./signupMenu";
 
-function Header() {
+function Navbar() {
   return (
     <div className="fixed top-3 rounded-2xl z-40 w-full test h-12 bg-gray-200">
       <div className="container mx-auto px-6 md:px-0 flex items-center justify-between ">
@@ -24,4 +24,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default Navbar;

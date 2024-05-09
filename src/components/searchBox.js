@@ -5,7 +5,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 
 function SearchBox() {
   return (
-    <div className='absolute z-50 top-1/4 left-1/4 bg-white bg-opacity-70 rounded-lg p-2'>
+    <div id ="searchbox" className='absolute z-50 top-1/4 left-1/4 bg-white bg-opacity-70 rounded-lg p-2'>
       <Autocomplete className='mx-auto'
       id="country-select-demo"
       sx={{ width: '50vw' }}

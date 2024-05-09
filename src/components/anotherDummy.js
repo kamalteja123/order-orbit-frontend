@@ -9,19 +9,19 @@ import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
 function YourComp() {
   const [userData, setUserData] = useState([]);
 
-//   useEffect(() => {
-//     axios.get('http://localhost:5000/api/data')
-//       .then(function (response) {
-//         setUserData(response.data);
-//       })
-//       .catch(function (error) {
-//         console.log(error);
-//       });
-//   }, []);
+  useEffect(() => {
+    axios.get('http://localhost:5000/api/data')
+      .then(function (response) {
+        setUserData(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
 
   return (
-    <div className='pt-16 text-center'>
-      <button className='bg-blue-500 text-white px-4 py-1 rounded-md' onClick={handleClick}>Fetch Data</button>
+    <div className='absolute top-16  pt-16 text-center hidden' id='comp'>
+      {/* <button className='bg-blue-500 text-white px-4 py-1 rounded-md' onClick={handleClick}>Fetch Data</button> */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4 ">
         {userData.map(user => (
           <Card sx={{ minHeight: '280px', width: 320 }}>
@@ -56,17 +56,17 @@ function YourComp() {
     </div>
   );
 
-  function handleClick() {
-    console.log('clicked');
-    axios.get('http://localhost:5000/api/data')
-      .then(function (response) {
-        setUserData(response.data);
-        console.log(userData[1].image);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }
+  // function handleClick() {
+  //   console.log('clicked');
+  //   axios.get('http://localhost:5000/api/data')
+  //     .then(function (response) {
+  //       setUserData(response.data);
+  //       console.log(userData[1].image);
+  //     })
+  //     .catch(function (error) {
+  //       console.log(error);
+  //     });
+  // }
 }
 
 export default YourComp;
