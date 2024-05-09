@@ -6,13 +6,14 @@ import CardContent from '@mui/joy/CardContent';
 import Typography from '@mui/joy/Typography';
 import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
 
-function YourComp() {
+function ViewOrder() {
   const [userData, setUserData] = useState([]);
 
   useEffect(() => {
     axios.get('http://localhost:5000/api/data')
       .then(function (response) {
         setUserData(response.data);
+        console.log(response.data)
       })
       .catch(function (error) {
         console.log(error);
@@ -20,11 +21,10 @@ function YourComp() {
   }, []);
 
   return (
-    <div className='absolute top-16  pt-16 text-center hidden' id='comp'>
-      <button className='bg-blue-500 text-white px-4 py-1 rounded-md' onClick={handleClick}>Fetch Data</button>
+    <div className='absolute top-16  pt-16 text-center hidden z-50' id='comp'>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4 ">
         {userData.map(user => (
-          <Card sx={{ minHeight: '280px', width: 320 }}>
+          <Card key={user.firstName} sx={{ minHeight: '280px', width: 320 }}>
           <CardCover>
             <img
               src={user.image}
@@ -55,18 +55,6 @@ function YourComp() {
       </div>
     </div>
   );
-
-  function handleClick() {
-    console.log('clicked');
-    axios.get('http://localhost:5000/api/data')
-      .then(function (response) {
-        setUserData(response.data);
-        console.log(userData[1].image);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }
 }
 
-export default YourComp;
+export default ViewOrder;

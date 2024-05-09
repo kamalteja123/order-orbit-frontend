@@ -5,6 +5,7 @@ import UserSignup from './pages/userSignup';
 import ForgotPassword from './pages/forgotPass';
 import UserDash from './pages/userDashboard';
 import RestaurantSignin from './pages/restaurantSignIn';
+import RestaurantDash from './pages/restaurantDashboard';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
           <Route path="/usersignup" element={<UserSignup/>}/>
           <Route path="/forgotpassword" element={<ForgotPassword/>}/>
           <Route path="/userdashboard" element={<UserDash/>}/>
+          <Route path="/restaurantdashboard" element={<RestaurantDash/>}/>
         </Routes>
       </BrowserRouter>
     </div>

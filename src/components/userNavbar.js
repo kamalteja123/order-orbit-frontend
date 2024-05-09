@@ -7,13 +7,13 @@ function UserNavbar() {
   const navigate = useNavigate();
   function handleclick() {
     if (previousOrder) {
-    document.getElementById("previousorder").innerText="Previous Orders";
+      document.getElementById("previousorder").innerText = "Previous Orders";
       document.getElementById("welcome").classList.remove("invisible");
       document.getElementById("searchbox").classList.remove("invisible");
       document.getElementById("comp").classList.add("hidden");
       setPreviousOrder(false);
     } else {
-        document.getElementById("previousorder").innerText="Dashboard";
+      document.getElementById("previousorder").innerText = "Dashboard";
       document.getElementById("welcome").classList.add("invisible");
       document.getElementById("searchbox").classList.add("invisible");
       document.getElementById("comp").classList.remove("hidden");
@@ -38,10 +38,21 @@ function UserNavbar() {
           <div className="absolute left-1/2 -translate-x-1/2">
             welllcome! user_name
           </div>
-          <div className="mr-6">
-            <button onClick={handleclick} id="previousorder" className="bg-blue-500 text-white px-2 py-0 rounded-md">previous_orders</button>
+          <div className="mx-2">
+            <button
+              onClick={handleclick}
+              id="previousorder"
+              className="bg-blue-500 text-white px-2 py-0 rounded-md"
+            >
+              previous_orders
+            </button>
+            <button
+              onClick={handlelogout}
+              className="bg-red-600 text-white px-2 py-0 rounded-md"
+            >
+              log out
+            </button>
           </div>
-          <button onClick={handlelogout}>log out</button>
         </div>
       </div>
     </div>
