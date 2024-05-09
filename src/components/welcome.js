@@ -5,7 +5,7 @@ function Welcome() {
   return (
     <div >
       <img id="welcome"
-        className="relative w-full h-screen overflow-hidden "
+        className="relative w-full h-screen overflow-hidden blur-sm"
         src={BGimg}
         alt="not working"
       />

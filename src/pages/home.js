@@ -12,7 +12,7 @@ import "../App.css";
 function Home(){
     return (
     <div className="App">
-      <Navbar/>
+      {/* <Navbar/> */}
       {/* <Dummy/> */}
       <Welcome/>
       {/* <YourComp/> */}

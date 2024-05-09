@@ -21,10 +21,10 @@ function ViewOrder() {
   }, []);
 
   return (
-    <div className='absolute top-16  pt-16 text-center hidden z-50' id='comp'>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4 ">
+    <div className='absolute top-16 text-center z-50' id='comp'>
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-4 gap-4 ">
         {userData.map(user => (
-          <Card key={user.firstName} sx={{ minHeight: '280px', width: 320 }}>
+          <Card key={user.firstName} sx={{ minHeight: '280px', width: 250 }}>
           <CardCover>
             <img
               src={user.image}
