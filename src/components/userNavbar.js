@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Logo from "../assests/Logo.png";
 import { useNavigate } from "react-router-dom";
+import UserLogoutMenu from "./userLogoutMenu";
 
 function UserNavbar() {
   const [previousOrder, setPreviousOrder] = useState(false);
@@ -38,20 +39,17 @@ function UserNavbar() {
           <div className="absolute left-1/2 -translate-x-1/2">
             welllcome! user_name
           </div>
-          <div className="mx-2">
-            <button
+          <div className="mx-2 flex row-auto">
+            <div
               onClick={handleclick}
               id="previousorder"
               className="bg-blue-500 text-white px-2 py-0 rounded-md"
             >
               previous_orders
-            </button>
-            <button
-              onClick={handlelogout}
-              className="bg-red-600 text-white px-2 py-0 rounded-md"
-            >
-              log out
-            </button>
+            </div>
+            <div>
+              <UserLogoutMenu />
+            </div>
           </div>
         </div>
       </div>

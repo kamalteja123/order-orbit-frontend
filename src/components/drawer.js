@@ -16,6 +16,7 @@ import Dummy from "./dummy";
 import Welcome from "./welcome";
 import ViewOrder from "./viewOrdesDialog";
 import YourComp from "./anotherDummy";
+import UpdateMenuDialog from "./updateMenuDialog";
 const drawerWidth = 200;
 
 export default function PermanentDrawerLeft() {
@@ -31,51 +32,47 @@ export default function PermanentDrawerLeft() {
       <CssBaseline />
       <AppBar
         position="fixed"
-        sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}
+        sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
       >
-        <Toolbar>
+        <Toolbar className="nav-color">
           <Typography variant="h6" noWrap component="div">
             Restaurant Dashboard
           </Typography>
         </Toolbar>
       </AppBar>
       <Drawer
+        variant="permanent"
         sx={{
           width: drawerWidth,
           flexShrink: 0,
-          "& .MuiDrawer-paper": {
+          [`& .MuiDrawer-paper`]: {
             width: drawerWidth,
             boxSizing: "border-box",
           },
         }}
-        variant="permanent"
-        anchor="left"
       >
         <Toolbar />
-        <Divider />
-        <List>
-          {options.map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemText
-                  primary={text}
-                  className="bg-red-500"
-                  onClick={(e) => handleClick(e)}
-                />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
+        <Box sx={{ overflow: "auto" }}>
+          <List>
+            {options.map((text, index) => (
+              <ListItem key={text} disablePadding>
+                <ListItemButton>
+                  <ListItemText
+                    primary={text}
+                    onClick={(e) => handleClick(e)}
+                  />
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
+        </Box>
         <Divider />
       </Drawer>
-      <Box
-        component="main"
-        sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}
-      >
+      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         {selected === options[0] ? (
           <ViewOrder />
         ) : selected === options[1] ? (
-          <Welcome />
+          <UpdateMenuDialog />
         ) : selected === options[2] ? (
           <Dummy />
         ) : selected === options[3] ? (

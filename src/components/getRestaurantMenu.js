@@ -6,7 +6,7 @@ import CardContent from '@mui/joy/CardContent';
 import Typography from '@mui/joy/Typography';
 import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
 
-function ViewOrder() {
+function GetRestaurantMenu() {
   const [userData, setUserData] = useState([]);
 
   useEffect(() => {
@@ -57,4 +57,4 @@ function ViewOrder() {
   );
 }
 
-export default ViewOrder;
+export default GetRestaurantMenu;
