@@ -31,7 +31,7 @@ function SignUpMenu() {
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
       >
-        <span className='text-black'>Sign Up</span>
+        <span className='text-black z-50'>Sign Up</span>
       </Button>
       <Menu
         id="basic-menu"
