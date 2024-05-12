@@ -1,5 +1,6 @@
 import React from 'react';
 import CloseIcon from './closeIcon';
+import axios from 'axios';
 
 function handleChange(event) {
     event.preventDefault();
@@ -15,12 +16,36 @@ function handleChange(event) {
 }
 
 function RestaurantSignInDialog() {
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        console.log(email,password)
+        try {
+            const response = await axios.post('http://localhost:8090/api/loginRestaurant', {
+                email: email,
+                password: password
+            });
+            
+            // Assuming the backend responds with a token
+            const token = response.data.token;
+            console.log(token)
+            // Store the token in cookies
+            document.cookie = `token=${token};path=/`;
+
+            // Optionally, redirect the user to a different page
+            window.location.href = '/restaurantdashboard';
+        } catch (error) {
+            console.error('Login failed:', error);
+            // Display error message to the user
+        }
+    };
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-40">
             <CloseIcon/>
             <div className="bg-white p-8 rounded-lg w-100">
                 <h2 className="text-xl font-semibold mb-4">Restaurant Sign In</h2>
-                <form className="mb-4">
+                <form className="mb-4" onSubmit={handleSubmit}>
                     <div className="mb-4">
                         <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
                         <input type="email" id="email" name="email" placeholder='Enter your email' className="mt-1 px-4 py-2 w-full border rounded-md" />
@@ -31,7 +56,7 @@ function RestaurantSignInDialog() {
                     </div>
                     <div className="flex justify-between items-center">
                     <a href="/forgotpassword" className="text-blue-500 font-semibold pr-40">Forgot Password?</a>
-                        <button onClick={(e) => handleChange(e)} className="bg-blue-500 text-white px-6 py-2 rounded-md">Sign In</button>
+                    <button onClick={handleSubmit} className="bg-blue-500 text-white px-6 py-2 rounded-md">Sign In</button>
                     </div>
                 </form>
                 <div className="text-center">

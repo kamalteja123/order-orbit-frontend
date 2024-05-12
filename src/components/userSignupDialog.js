@@ -1,11 +1,44 @@
-import React from "react";
-
+import React,{useState} from "react";
+import axios from "axios";
 function UserSignUpDialog() {
+  const [formData, setFormData] = useState({
+    cname: "",
+    cemail: "",
+    cphoneNum: "",
+    cpassword: "",
+    // confirmPassword: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        "http://localhost:8090/api/resgisterCustomer",
+        formData
+      );
+      // console.log("Registration successful:", response.data);
+      // Optionally, you can redirect the user to a different page after successful registration
+      setFormData({
+        cname: "",
+        cemail: "",
+        cphoneNum: "",
+        cpassword: "",
+        // confirmPassword: "",
+      });
+    } catch (error) {
+      console.error("Registration failed:", error);
+    }
+  };
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50">
       <div className="bg-white p-8 rounded-lg w-100">
         <h2 className="text-xl font-semibold mb-4">User Sign Up</h2>
-        <form className="mb-4">
+        <form className="mb-4" onSubmit={handleSubmit}>
           <div className="mb-4">
             <label
               htmlFor="name"
@@ -16,9 +49,11 @@ function UserSignUpDialog() {
             <input
               type="text"
               id="name"
-              name="name"
+              value={formData.cname}
+              name="cname"
               placeholder="Enter your Name"
               className="mt-1 px-4 py-2 w-full border rounded-md"
+              onChange={handleChange}
             />
           </div>
           {/* <div className="mb-4 pl-2">
@@ -36,9 +71,11 @@ function UserSignUpDialog() {
             <input
               type="email"
               id="email"
-              name="email"
+              value={formData.cemail}
+              name="cemail"
               placeholder="Enter your email"
               className="mt-1 px-4 py-2 w-full border rounded-md"
+              onChange={handleChange}
             />
           </div>
 
@@ -52,9 +89,11 @@ function UserSignUpDialog() {
             <input
               type="phonenumber"
               id="phonenumber"
-              name="phonenumber"
+              name="cphoneNum"
+              value={formData.cphoneNum}
               placeholder="Enter your Phone Number"
               className="mt-1 px-4 py-2 w-full border rounded-md"
+              onChange={handleChange}
             />
           </div>
           <div className="flex flex-row">
@@ -68,12 +107,14 @@ function UserSignUpDialog() {
               <input
                 type="password"
                 id="password"
-                name="password"
+                name="cpassword"
+                value={formData.cpassword}
                 placeholder="Enter password"
                 className="mt-1 px-4 py-2 w-full border rounded-md"
+                onChange={handleChange}
               />
             </div>
-            <div className="mb-4 pl-2">
+            {/* <div className="mb-4 pl-2">
               <label
                 htmlFor="confirmPassword"
                 className="block text-sm font-medium text-gray-700"
@@ -86,8 +127,9 @@ function UserSignUpDialog() {
                 name="confirmPassword"
                 placeholder="ReEnter Password"
                 className="mt-1 px-4 py-2 w-full border rounded-md"
+                onChange={handleChange}
               />
-            </div>
+            </div> */}
           </div>
 
           <button
