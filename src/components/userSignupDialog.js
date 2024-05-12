@@ -141,7 +141,7 @@ function UserSignUpDialog() {
         </form>
         <div className="text-center">
           <p className="text-sm">Already have an account?</p>
-          <a href="/signin" className="text-blue-600 font-semibold">
+          <a href="/usersignin" className="text-blue-600 font-semibold">
             Sign In
           </a>
         </div>
