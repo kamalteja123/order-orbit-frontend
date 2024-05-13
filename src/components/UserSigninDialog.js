@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import CloseIcon from "./closeIcon";
 import axios from "axios";
 import StoreValue from "./storageClass";
@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import BasicAlerts from "./alert";
 
 function UserSignInDialog() {
+  const [alertval, setAlertval] = useState(null);
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -13,16 +14,18 @@ function UserSignInDialog() {
       document.getElementById("siupassword").value === "" ||
       document.getElementById("siuemail").value === ""
     ) {
-      <BasicAlerts
-        alert={{
-          severity: "success",
-          message: "This is an error !!!!",
-        }}
-      />
       alert("email and password cannot be empty");
+      setAlertval({
+        severity: "error",
+        message: "email and password cannot be empty",
+      })
     } else {
       let siuemail = document.getElementById("siuemail").value;
       let siupassword = document.getElementById("siupassword").value;
+      setAlertval({
+        severity: "success",
+        message: "email and password c",
+      })
       try {
         const response = await axios.post("/loginCustomer", {
           email: siuemail,
@@ -48,7 +51,7 @@ function UserSignInDialog() {
             >
               Email
             </label>
-
+            {alertval && <BasicAlerts alert={alertval} />}
             <input
               type="email"
               id="siuemail"
