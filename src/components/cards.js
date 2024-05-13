@@ -9,9 +9,9 @@ import Contactus from "../assests/contactus.jpg";
 
 function MediaCard() {
   return (
-    <div className="flex row-auto gap-10 m-auto mb-10">
+    <div className="flex row-auto gap-10 m-auto mb-10 ">
       {" "}
-      <div className="pt-10 ">
+      <div className="pt-10 hover:scale-105 ">
         <Card sx={{ maxWidth: 345 }}>
           <CardMedia sx={{ height: 140 }} image={Mission} title="mission" />
           <CardContent>
@@ -27,7 +27,7 @@ function MediaCard() {
           <CardActions></CardActions>
         </Card>
       </div>
-      <div className="pt-10 ">
+      <div className="pt-10 hover:scale-105 ">
         <Card sx={{ maxWidth: 345 }}>
           <CardMedia sx={{ height: 140 }} image={Contactus} title="mission" />
           <CardContent>
@@ -35,8 +35,8 @@ function MediaCard() {
              Contact Us
             </Typography>
             <Typography variant="body2" color="text.secondary" className="w-80 h-20">
-              <a href="mailto:0dJrF@example.com">e-mail: 0dJrF@example.com</a><br></br>
-              <a href="tel:123456789"> Phone: 123456789</a>
+              <a href="mailto:0dJrF@example.com">e-mail: <span className="hover:text-blue-500">orderflow@example.com</span></a><br/>
+              <a href="tel:123456789"> Phone: <span className="hover:text-blue-500">9876543210</span></a>
             </Typography>
           </CardContent>
           <CardActions></CardActions>

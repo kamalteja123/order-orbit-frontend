@@ -10,18 +10,15 @@ import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Dummy from "./dummy";
-import Welcome from "./welcome";
 import ViewOrder from "./viewOrdesDialog";
-import YourComp from "./anotherDummy";
 import UpdateMenuDialog from "./updateMenuDialog";
 const drawerWidth = 200;
 
 export default function PermanentDrawerLeft() {
   const [selected, setSelected] = useState("");
-  const options = ["View orders", "Update menu", "Delete menu", "Logout"];
+  const options = [{"option":"View orders", "icon":"View_cozy"}, {"option":"Update menu", "icon":"Edit"}, {"option":"Delete menu", "icon":"Delete"}];
 
   function handleClick(event) {
     setSelected(event.currentTarget.innerText);
@@ -34,9 +31,13 @@ export default function PermanentDrawerLeft() {
         position="fixed"
         sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
       >
-        <Toolbar className="nav-color">
+        <Toolbar className="nav-color text-black">
           <Typography variant="h6" noWrap component="div">
             Restaurant Dashboard
+            <span className=" absolute right-12 top-1/2 -translate-y-1/2 text-black material-symbols-outlined hover:scale-105">
+              {" "}
+              logout
+            </span>
           </Typography>
         </Toolbar>
       </AppBar>
@@ -55,10 +56,11 @@ export default function PermanentDrawerLeft() {
         <Box sx={{ overflow: "auto" }}>
           <List>
             {options.map((text, index) => (
-              <ListItem key={text} disablePadding>
+              <ListItem className=" hover:shadow-lg" key={text.option} disablePadding>
                 <ListItemButton>
+                  <span className="material-symbols-outlined pr-3">{text.icon}</span>
                   <ListItemText
-                    primary={text}
+                    primary={text.option}
                     onClick={(e) => handleClick(e)}
                   />
                 </ListItemButton>
@@ -66,16 +68,13 @@ export default function PermanentDrawerLeft() {
             ))}
           </List>
         </Box>
-        <Divider />
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-        {selected === options[0] ? (
+      <Box component="main" sx={{ flexGrow: 1, p: 2 }}>
+        {selected === options[0].option ? (
           <ViewOrder />
-        ) : selected === options[1] ? (
+        ) : selected === options[1].option ? (
           <UpdateMenuDialog />
-        ) : selected === options[2] ? (
-          <Dummy />
-        ) : selected === options[3] ? (
+        ) : selected === options[2].option ? (
           <Dummy />
         ) : (
           <></>

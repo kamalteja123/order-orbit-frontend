@@ -12,11 +12,9 @@ function UserLogoutMenu() {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = (event) => {
-    if (event.currentTarget.innerText === "User Sign in") {
-      navigate("/usersignin");
-    } else if (event.currentTarget.innerText === "Restaurant Sign in") {
-      navigate("/restaurantsignin");
-    }
+    if (event.currentTarget.innerText === "Logout") {
+      navigate("/home");
+    } 
     setAnchorEl(null);
   };
 
@@ -29,8 +27,8 @@ function UserLogoutMenu() {
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
       >
-        <span className="text-black material-symbols-outlined">
-          account_circle
+        <span className="text-black material-symbols-outlined rounded-lg hover:scale-105">
+          Logout
         </span>
       </Button>
       <Menu
@@ -42,8 +40,7 @@ function UserLogoutMenu() {
           "aria-labelledby": "basic-button",
         }}
       >
-        <MenuItem onClick={(e) => handleClose(e)}>User Sign in</MenuItem>
-        <MenuItem onClick={(e) => handleClose(e)}>Restaurant Sign in </MenuItem>
+        <MenuItem onClick={(e) => handleClose(e)}>Logout</MenuItem>
       </Menu>
     </div>
   );

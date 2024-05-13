@@ -3,7 +3,6 @@ import Navbar from '../components/navbar';
 import Dummy from '../components/dummy';
 import YourComp from '../components/anotherDummy';
 import Footer from '../components/footer';
-import GradientCover from "../components/Card";
 import SearchBox from "../components/searchBox";
 import CloseIcon from "../components/closeIcon";
 import Welcome from "../components/welcome";

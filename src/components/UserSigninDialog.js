@@ -1,39 +1,31 @@
 import React from "react";
 import CloseIcon from "./closeIcon";
 import axios from "axios";
-
-function handleChange(event) {
-  event.preventDefault();
-}
+import StoreValue from "./storageClass";
+import { useNavigate } from "react-router-dom";
+import BasicAlerts from "./alert";
 
 function UserSignInDialog() {
+  const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (
-      document.getElementById("password").value === "" ||
-      document.getElementById("email").value === ""
+      document.getElementById("siupassword").value === "" ||
+      document.getElementById("siuemail").value === ""
     ) {
       alert("email and password cannot be empty");
     } else {
-      let email = document.getElementById("email").value;
-      let password = document.getElementById("password").value;
+      let siuemail = document.getElementById("siuemail").value;
+      let siupassword = document.getElementById("siupassword").value;
       try {
         const response = await axios.post("/loginCustomer", {
-          email: email,
-          password: password,
+          email: siuemail,
+          password: siupassword,
         });
-
-        // Assuming the backend responds with a token
-        const token = response.data.token;
-        console.log(token);
-        // Store the token in cookies
-        document.cookie = `token=${token};path=/`;
-
-        // Optionally, redirect the user to a different page
-        window.location.href = "/userdashboard";
+        StoreValue.setToken(response.data.token);
+        navigate("/userDashboard");
       } catch (error) {
         console.error("Login failed:", error);
-        // Display error message to the user
       }
     }
   };
@@ -50,9 +42,15 @@ function UserSignInDialog() {
             >
               Email
             </label>
+            <BasicAlerts
+              alert={{
+                severity: "success",
+                message: "This is an error poooojaaa",
+              }}
+            />
             <input
               type="email"
-              id="email"
+              id="siuemail"
               name="email"
               placeholder="Enter your email"
               className="mt-1 px-4 py-2 w-full border rounded-md"
@@ -67,7 +65,7 @@ function UserSignInDialog() {
             </label>
             <input
               type="password"
-              id="password"
+              id="siupassword"
               name="password"
               placeholder="Enter password"
               className="mt-1 px-4 py-2 w-full border rounded-md"

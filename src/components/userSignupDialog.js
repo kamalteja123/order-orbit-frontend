@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 function UserSignUpDialog() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     cname: "",
     cemail: "",
     cphoneNum: "",
     cpassword: "",
-    // confirmPassword: "",
   });
 
   const handleChange = (e) => {
@@ -16,22 +17,27 @@ function UserSignUpDialog() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const response = await axios.post(
-        "http://localhost:8090/api/resgisterCustomer",
-        formData
-      );
-      // console.log("Registration successful:", response.data);
-      // Optionally, you can redirect the user to a different page after successful registration
-      setFormData({
-        cname: "",
-        cemail: "",
-        cphoneNum: "",
-        cpassword: "",
-        // confirmPassword: "",
-      });
-    } catch (error) {
-      console.error("Registration failed:", error);
+    if (
+      document.getElementById("suuname").value === "" ||
+      document.getElementById("suuemail").value === "" ||
+      document.getElementById("suuphonenumber").value === "" ||
+      document.getElementById("suupassword").value === "" ||
+      document.getElementById("suuconfirmPassword").value === ""
+    ) {
+      alert("all fields are mandatory");
+    } else if (
+      document.getElementById("suupassword").value !==
+      document.getElementById("suuconfirmPassword").value
+    ) {
+      alert("Passwords do not match");
+    } else {
+      try {
+        const response = await axios.post("/resgisterCustomer", formData);
+        alert("Registration successful");
+        navigate("/home");
+      } catch (error) {
+        console.error("Registration failed:", error);
+      }
     }
   };
   return (
@@ -48,7 +54,7 @@ function UserSignUpDialog() {
             </label>
             <input
               type="text"
-              id="name"
+              id="suuname"
               value={formData.cname}
               name="cname"
               placeholder="Enter your Name"
@@ -56,10 +62,6 @@ function UserSignUpDialog() {
               onChange={handleChange}
             />
           </div>
-          {/* <div className="mb-4 pl-2">
-                            <label htmlFor="name" className="block text-sm font-medium text-gray-700">Last Name</label>
-                            <input type="text" id="lastname" name="lastname" className="mt-1 px-4 py-2 w-full border rounded-md" />
-                        </div> */}
 
           <div className="mb-4">
             <label
@@ -70,8 +72,7 @@ function UserSignUpDialog() {
             </label>
             <input
               type="email"
-              id="email"
-              value={formData.cemail}
+              id="suuemail"
               name="cemail"
               placeholder="Enter your email"
               className="mt-1 px-4 py-2 w-full border rounded-md"
@@ -88,9 +89,8 @@ function UserSignUpDialog() {
             </label>
             <input
               type="phonenumber"
-              id="phonenumber"
+              id="suuphonenumber"
               name="cphoneNum"
-              value={formData.cphoneNum}
               placeholder="Enter your Phone Number"
               className="mt-1 px-4 py-2 w-full border rounded-md"
               onChange={handleChange}
@@ -106,7 +106,7 @@ function UserSignUpDialog() {
               </label>
               <input
                 type="password"
-                id="password"
+                id="suupassword"
                 name="cpassword"
                 value={formData.cpassword}
                 placeholder="Enter password"
@@ -114,22 +114,22 @@ function UserSignUpDialog() {
                 onChange={handleChange}
               />
             </div>
-            {/* <div className="mb-4 pl-2">
+            <div className="mb-4 pl-2">
               <label
-                htmlFor="confirmPassword"
+                htmlFor="suuconfirmPassword"
                 className="block text-sm font-medium text-gray-700"
               >
                 Confirm Password
               </label>
               <input
                 type="password"
-                id="confirmPassword"
-                name="confirmPassword"
+                id="suuconfirmPassword"
+                name="suuconfirmPassword"
                 placeholder="ReEnter Password"
                 className="mt-1 px-4 py-2 w-full border rounded-md"
                 onChange={handleChange}
               />
-            </div> */}
+            </div>
           </div>
 
           <button

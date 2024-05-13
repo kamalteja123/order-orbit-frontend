@@ -7,7 +7,7 @@ export default function UpdateMenuDialog() {
   const [selected, setSelected] = useState(false);
   return (
     <div>
-      {!selected ? (
+      {selected ? (
         <GetRestaurantMenu />
       ) : (
         <Box
