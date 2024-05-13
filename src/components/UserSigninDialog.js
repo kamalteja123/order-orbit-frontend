@@ -13,6 +13,12 @@ function UserSignInDialog() {
       document.getElementById("siupassword").value === "" ||
       document.getElementById("siuemail").value === ""
     ) {
+      <BasicAlerts
+        alert={{
+          severity: "success",
+          message: "This is an error !!!!",
+        }}
+      />
       alert("email and password cannot be empty");
     } else {
       let siuemail = document.getElementById("siuemail").value;
@@ -42,12 +48,7 @@ function UserSignInDialog() {
             >
               Email
             </label>
-            <BasicAlerts
-              alert={{
-                severity: "success",
-                message: "This is an error poooojaaa",
-              }}
-            />
+
             <input
               type="email"
               id="siuemail"
