@@ -4,10 +4,11 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import StoreValue from "./storageClass";
+import { useNavigate } from "react-router-dom";
 
 function SearchBox() {
   const [allRestaurant, setAllRestaurant] = useState([]);
-  const [showMenu, setShowMenu] = useState(false);
+  const navigate = useNavigate();
   function findIdByName(name) {
     for (let i = 0; i < allRestaurant.length; i++) {
       if (allRestaurant[i].rname === name) {
@@ -36,7 +37,7 @@ function SearchBox() {
       .querySelectorAll("input")[0].value;
     const rid = findIdByName(restName);
     StoreValue.setRid(rid);
-    setShowMenu(true);
+    navigate("/userorders");
   };
 
   return (

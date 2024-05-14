@@ -1,6 +1,19 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
+import StoreValue from "./storageClass";
 
-const OTPDialog = () => {
+function OTPDialog() {
+    const validateOTPRequest = async (otp) => {
+      try {
+        const response = await axios.post("/verify-otp-customer",{
+          email: StoreValue.getUserEmail(),
+          otp: otp,
+        });
+        console.log(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
   const handleInputChange = (event, index) => {
     let value = event.target.value;
     const otpInputs = document.querySelectorAll("#otp > *[id]");
@@ -42,6 +55,18 @@ const OTPDialog = () => {
     setTimer(60);
     setShowResend(false);
   };
+
+  const handleValidateClick = () => {
+    const otpInputs = document.querySelectorAll("#otp > *[id]");
+    const otp = Array.from(otpInputs)
+      .map((input) => input.value)
+      .join("");
+    if (otp.length === 6) {
+      validateOTPRequest(otp);
+      console.log("OTP:", otp);
+    }
+  };
+
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50">
       <div className="bg-white p-8 rounded-lg w-100">
@@ -59,7 +84,10 @@ const OTPDialog = () => {
           ))}
         </div>
         <div className="mt-4 flex flex-row justify-between">
-          <button className="bg-blue-500 text-white px-6 py-2 rounded-md mt-4">
+          <button
+            className="bg-blue-500 text-white px-6 py-2 rounded-md mt-4"
+            onClick={handleValidateClick}
+          >
             Validate
           </button>
           {showResend ? (
@@ -79,6 +107,6 @@ const OTPDialog = () => {
       </div>
     </div>
   );
-};
+}
 
 export default OTPDialog;

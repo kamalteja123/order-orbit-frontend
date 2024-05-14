@@ -4,6 +4,15 @@ class StoreValue {
     constructor() {
       this.token = null;
       this.rid = null;
+      this.useremail = null;
+    }
+  
+    setUserEmail(newEmail) {
+      this.useremail = newEmail;
+    }
+  
+    getUserEmail() {
+      return this.useremail;
     }
   
     setRid(newRid) {

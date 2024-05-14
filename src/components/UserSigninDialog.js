@@ -24,7 +24,7 @@ function UserSignInDialog() {
       let siupassword = document.getElementById("siupassword").value;
       setAlertval({
         severity: "success",
-        message: "email and password c",
+        message: "successfully logged in",
       })
       try {
         const response = await axios.post("/loginCustomer", {

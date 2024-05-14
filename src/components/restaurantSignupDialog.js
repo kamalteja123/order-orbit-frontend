@@ -1,15 +1,16 @@
 import React ,{useState} from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 function RestaurantSignUpDialog() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     rname: "",
     remail: "",
     rphoneNum: "",
     rpassword: "",
-    raddress:"",
-    // confirmPassword: "",
+    raddress:""
   });
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -17,27 +18,36 @@ function RestaurantSignUpDialog() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const response = await axios.post(
-        "http://localhost:8090/api/resgisterRestaurant",
-        formData
-      );
-      console.log("Registration successful:", response.data);
-      // Optionally, you can redirect the user to a different page after successful registration
-      setFormData({
-        rname: "",
-        remail: "",
-        rphoneNum: "",
-        rpassword: "",
-        raddress:"",
-      });
-    } catch (error) {
-      console.error("Registration failed:", error);
+    if (
+      document.getElementById("surname").value === "" ||
+      document.getElementById("suremail").value === "" ||
+      document.getElementById("surphonenumber").value === "" ||
+      document.getElementById("surpassword").value === "" ||
+      document.getElementById("surconfirmPassword").value === ""||
+      document.getElementById("suraddress").value === ""
+    ) {
+      alert("all fields are mandatory");
+    } else if (
+      document.getElementById("surpassword").value !==
+      document.getElementById("surconfirmPassword").value
+    ) {
+      alert("Passwords do not match");
+    } else {
+      try {
+        const response = await axios.post(
+          "http://localhost:8090/api/resgisterRestaurant",
+          formData
+        );
+        console.log("Registration successful:", response.data);
+        navigate("/home");
+      } catch (error) {
+        console.error("Registration failed:", error);
+      }
     }
   };
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50">
-      <div className="bg-white p-8 rounded-lg w-100">
+      <div className="bg-white p-8 rounded-lg w-100 ">
         <h2 className="text-xl font-semibold mb-4">Restaurant Sign Up</h2>
         <form className="mb-4" onSubmit={handleSubmit}>
           <div className="mb-4">
@@ -49,18 +59,13 @@ function RestaurantSignUpDialog() {
             </label>
             <input
               type="text"
-              id="name"
+              id="surname"
               name="rname"
               value={formData.rname}
               onChange={handleChange}
               placeholder="Enter Name"
               className="mt-1 px-4 py-2 w-full border rounded-md"
             />
-
-            {/* <div className="mb-4 pl-2">
-                            <label htmlFor="name" className="block text-sm font-medium text-gray-700">Last Name</label>
-                            <input type="text" id="lastname" name="lastname" className="mt-1 px-4 py-2 w-full border rounded-md" />
-                        </div> */}
           </div>
           <div className="mb-4">
             <label
@@ -71,7 +76,7 @@ function RestaurantSignUpDialog() {
             </label>
             <input
               type="email"
-              id="email"
+              id="suremail"
               name="remail"
               onChange={handleChange} 
               value={formData.remail}
@@ -89,7 +94,7 @@ function RestaurantSignUpDialog() {
             </label>
             <input
               type="address"
-              id="address"
+              id="suraddress"
               name="raddress"
               onChange={handleChange} 
               value={formData.raddress}
@@ -107,7 +112,7 @@ function RestaurantSignUpDialog() {
             </label>
             <input
               type="phonenumber"
-              id="phonenumber"
+              id="surphonenumber"
               name="rphoneNum"
               value={formData.rphoneNum}
               onChange={handleChange}
@@ -126,7 +131,7 @@ function RestaurantSignUpDialog() {
               </label>
               <input
                 type="password"
-                id="password"
+                id="surpassword"
                 name="rpassword"
                 onChange={handleChange}
                  value={formData.rpassword}
@@ -134,7 +139,7 @@ function RestaurantSignUpDialog() {
                 className="mt-1 px-4 py-2 w-full border rounded-md"
               />
             </div>
-            {/* <div className="mb-4 pl-2">
+            <div className="mb-4 pl-2">
               <label
                 htmlFor="confirmPassword"
                 className="block text-sm font-medium text-gray-700"
@@ -143,12 +148,12 @@ function RestaurantSignUpDialog() {
               </label>
               <input
                 type="password"
-                id="confirmPassword"
+                id="surconfirmPassword"
                 name="confirmPassword"
                 placeholder="ReEnter Password"
                 className="mt-1 px-4 py-2 w-full border rounded-md"
               />
-            </div> */}
+            </div>
           </div>
           <button
             type="submit"

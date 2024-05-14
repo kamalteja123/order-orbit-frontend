@@ -1,17 +1,39 @@
 import React, { useState } from "react";
-import OTPDialog from '../components/otpDialog';
+import OTPDialog from "../components/otpDialog";
+import StoreValue from "./storageClass";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function ForgotPasswordDialog() {
   const [showOTP, setShowOTP] = useState(false);
-  function handleChange(event) {
+  const [userEmail, setUserEmail] = useState("");
+  const navigate = useNavigate();
+
+  const requestOTP = async () => {
+    try {
+      const response = await axios.post("/request-otp", {
+        email: userEmail,
+      });
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  function handleClick(event) {
     event.preventDefault();
-    // You can toggle the state here to show the OTP page
-    setShowOTP(true);
+    setUserEmail(document.getElementById("fpuemail").value);
+    if (userEmail === "") {
+      alert("Please enter your email");
+    } else {
+      requestOTP();
+      StoreValue.setUserEmail(userEmail);
+      setShowOTP(true);
+    }
   }
   return (
     <div className="fg">
       {!showOTP ? (
-          <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50">
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50">
           <div className="bg-white p-8 rounded-lg shadow-md w-80">
             <h2 className="text-xl font-semibold mb-4">Forgot Password?</h2>
             <form>
@@ -24,7 +46,7 @@ function ForgotPasswordDialog() {
                 </label>
                 <input
                   type="email"
-                  id="email"
+                  id="fpuemail"
                   name="email"
                   className="mt-1 px-4 py-2 w-full border rounded-md"
                 />
@@ -32,7 +54,7 @@ function ForgotPasswordDialog() {
               <div className="flex justify-between items-center">
                 <button
                   type="submit"
-                  onClick={(e) => handleChange(e)}
+                  onClick={(e) => handleClick(e)}
                   className="bg-blue-500 text-white px-6 py-2 rounded-md"
                 >
                   Reset Password
@@ -40,7 +62,7 @@ function ForgotPasswordDialog() {
                 <button
                   type="button"
                   className="text-sm text-gray-600"
-                  onClick={() => console.log("Cancel clicked")}
+                  onClick={() => navigate("/usersignin")}
                 >
                   Cancel
                 </button>
@@ -48,9 +70,9 @@ function ForgotPasswordDialog() {
             </form>
           </div>
         </div>
-      ):(
-        <OTPDialog />)}
-      
+      ) : (
+        <OTPDialog />
+      )}
     </div>
   );
 }
