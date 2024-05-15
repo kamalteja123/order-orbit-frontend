@@ -19,9 +19,9 @@ export default function UpdateMenuDialog() {
           autoComplete="off"
           className="absolute top-20"
         >
-          <TextField id="item-name" label="Item Name" variant="filled" />
-          <TextField id="item-img" label="Item Image" variant="filled" />
-          <TextField id="item-price" label="Item Price" variant="filled" />
+          <TextField id="update-name" label="Item Name" variant="filled" />
+          <TextField id="update-img" label="Item Image" variant="filled" />
+          <TextField id="update-price" label="Item Price" variant="filled" />
         </Box>
       )}
     </div>

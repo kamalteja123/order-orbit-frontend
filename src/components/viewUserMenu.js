@@ -53,7 +53,7 @@ export default function ViewUserMenu() {
   };
 
   return (
-    <div className="pl-4 pt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 ">
+    <div className="pl-4 pb-4 pt-20 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 ">
       {response.map((item) => (
         <Card key={item.id} sx={{ width: 320}}>
           <div>
@@ -68,10 +68,10 @@ export default function ViewUserMenu() {
             />
           </AspectRatio>
           <CardContent orientation="horizontal">
-            <div>
+            <div className="">
               <Typography level="body-xs">Price:</Typography>
               <Typography fontSize="lg" fontWeight="lg">
-                Rs {item.mitemPrice}
+              &#8377; {item.mitemPrice}
               </Typography>
               <Typography level="body-xs">
                 Quantity:{" "}

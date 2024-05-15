@@ -3,8 +3,17 @@
 class StoreValue {
     constructor() {
       this.token = null;
+      this.resttoken = null;
       this.rid = null;
       this.useremail = null;
+    }
+  
+    setRestToken(newRestToken) {
+      this.resttoken = newRestToken;
+    }
+  
+    getRestToken() {
+      return this.resttoken;
     }
   
     setUserEmail(newEmail) {

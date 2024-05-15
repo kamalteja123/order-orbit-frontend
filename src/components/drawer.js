@@ -14,11 +14,18 @@ import ListItemText from "@mui/material/ListItemText";
 import Dummy from "./dummy";
 import ViewOrder from "./viewOrdesDialog";
 import UpdateMenuDialog from "./updateMenuDialog";
+import AddMenuDialog from "./addMenuDialog";
+
 const drawerWidth = 200;
 
 export default function PermanentDrawerLeft() {
   const [selected, setSelected] = useState("");
-  const options = [{"option":"View orders", "icon":"View_cozy"}, {"option":"Update menu", "icon":"Edit"}, {"option":"Delete menu", "icon":"Delete"}];
+  const options = [
+    { option: "View orders", icon: "View_cozy" },
+    { option: "Add item", icon: "add" },
+    { option: "Update menu", icon: "Edit" },
+    { option: "Delete menu item", icon: "Delete" },
+  ];
 
   function handleClick(event) {
     setSelected(event.currentTarget.innerText);
@@ -56,9 +63,15 @@ export default function PermanentDrawerLeft() {
         <Box sx={{ overflow: "auto" }}>
           <List>
             {options.map((text, index) => (
-              <ListItem className=" hover:shadow-lg" key={text.option} disablePadding>
+              <ListItem
+                className=" hover:shadow-lg"
+                key={text.option}
+                disablePadding
+              >
                 <ListItemButton>
-                  <span className="material-symbols-outlined pr-3">{text.icon}</span>
+                  <span className="material-symbols-outlined pr-3">
+                    {text.icon}
+                  </span>
                   <ListItemText
                     primary={text.option}
                     onClick={(e) => handleClick(e)}
@@ -73,8 +86,10 @@ export default function PermanentDrawerLeft() {
         {selected === options[0].option ? (
           <ViewOrder />
         ) : selected === options[1].option ? (
-          <UpdateMenuDialog />
+          <AddMenuDialog />
         ) : selected === options[2].option ? (
+          <UpdateMenuDialog />
+        ) : selected === options[3].option ? (
           <Dummy />
         ) : (
           <></>

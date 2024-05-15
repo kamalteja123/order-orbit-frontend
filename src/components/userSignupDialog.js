@@ -32,7 +32,7 @@ function UserSignUpDialog() {
       alert("Passwords do not match");
     } else {
       try {
-        const response = await axios.post("/resgisterCustomer", formData);
+        await axios.post("/resgisterCustomer", formData);
         alert("Registration successful");
         navigate("/home");
       } catch (error) {
