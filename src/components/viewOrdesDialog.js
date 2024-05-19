@@ -1,56 +1,104 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Card from '@mui/joy/Card';
-import CardCover from '@mui/joy/CardCover';
 import CardContent from '@mui/joy/CardContent';
 import Typography from '@mui/joy/Typography';
-import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
+import StoreValue from "./storageClass";
 
 function ViewOrder() {
   const [userData, setUserData] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/data')
-      .then(function (response) {
+    const fetchOrders = async () => {
+      try {
+        const headers = {
+          token: StoreValue.getRestToken(),
+        };
+        const response = await axios.get("http://localhost:8090/api/ordersAtRestaurantDashboard", { headers });
+
+        // Log response data
+        console.log(response.data);
+
+        // Store each order ID in StoreValue
+        response.data.forEach(order => {
+          StoreValue.setOid(order.oid);
+        });
+
+        // Set userData with response data
         setUserData(response.data);
-        console.log(response.data)
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchOrders();
   }, []);
+
+  const handleComplete = async (orderId) => {
+    
+    try {
+      await axios.put(`http://localhost:8090/api/updateOStatusToCompleted/${StoreValue.getOid()}`, {}, {
+      headers: {
+        token: StoreValue.getRestToken(),
+      },
+    });
+    console.log(StoreValue.getOid());
+    console.log(StoreValue.getRestToken());
+      // Update the order status in the frontend
+      setUserData(prevData => 
+        prevData.map(order => 
+          order.oid === orderId ? { ...order, ostatus: 'COMPLETED' } : order
+        )
+      );
+    } catch (error) {
+      console.error('Error updating order status:', error);
+    }
+  };
 
   return (
     <div className='absolute top-16 text-center z-50' id='comp'>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-4 gap-4 ">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-4 gap-4">
         {userData.map(user => (
-          <Card key={user.firstName} sx={{ minHeight: '280px', width: 250 }}>
-          <CardCover>
-            <img
-              src={user.image}
-              srcSet="https://images.unsplash.com/photo-1542773998-9325f0a098d7?auto=format&fit=crop&w=320&dpr=2 2x"
-              loading="lazy"
-              alt=""
-            />
-          </CardCover>
-          <CardCover
-            sx={{
-              background:
-                'linear-gradient(to top, rgba(0,0,0,0.4), rgba(0,0,0,0) 200px), linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0) 300px)',
-            }}
-          />
-          <CardContent sx={{ justifyContent: 'flex-end' }}>
-            <Typography level="title-lg" textColor="#fff" className="text-left">
-              {user.firstName} {user.lastName}
-            </Typography>
-            <Typography
-              startDecorator={<LocationOnRoundedIcon />}
-              textColor="neutral.300"
-            >
-              {user.email}
-            </Typography>
-          </CardContent>
-        </Card>
+          <Card key={user.oid} sx={{ minHeight: '280px', width: 250 }}>
+            <CardContent sx={{ justifyContent: 'flex-end' }}>
+              <Typography level="title-lg" textColor="#000" className="text-left">
+                Customer Name: {user.cname}
+              </Typography>
+              <Typography level="body1" textColor={user.ostatus === 'COMPLETED' ? 'blue' : 'green'} className="text-left">
+                Status: {user.ostatus}
+              </Typography>
+              <Typography level="body1" textColor="#000" className="text-left">
+                Order Items:
+              </Typography>
+              <table className="table-auto w-full mt-2">
+                <thead>
+                  <tr>
+                    <th className="px-4 py-2">Item</th>
+                    <th className="px-4 py-2">Quantity</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {user.oitems.split('-').map((item, idx) => {
+                    const [name, quantity] = item.split('*');
+                    return (
+                      <tr key={idx}>
+                        <td className="border px-4 py-2">{name}</td>
+                        <td className="border px-4 py-2">{quantity}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+              {user.ostatus !== 'COMPLETED' && (
+                <button
+                  onClick={() => handleComplete(user.oid)}
+                  className="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md"
+                >
+                  Complete
+                </button>
+              )}
+            </CardContent>
+          </Card>
         ))}
       </div>
     </div>

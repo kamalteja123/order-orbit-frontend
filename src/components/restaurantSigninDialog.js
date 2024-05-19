@@ -27,10 +27,11 @@ function RestaurantSignInDialog() {
         message: "successfully logged in",
       });
       try {
-        const response = await axios.post("/loginRestaurant", {
+        const response = await axios.post("http://localhost:8090/api/loginRestaurant", {
           email: siremail,
           password: sirpassword,
         });
+        console.log(response.data.token);
         StoreValue.setRestToken(response.data.token);
         navigate("/restaurantDashboard");
       } catch (error) {
