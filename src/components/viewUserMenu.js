@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useCallback } from "react";
 import AspectRatio from "@mui/joy/AspectRatio";
 import Button from "@mui/joy/Button";
 import Card from "@mui/joy/Card";
 import CardContent from "@mui/joy/CardContent";
 import IconButton from "@mui/joy/IconButton";
 import Typography from "@mui/joy/Typography";
+import StoreValue from "./storageClass";
 import BookmarkAdd from "@mui/icons-material/BookmarkAddOutlined";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
@@ -16,9 +17,15 @@ export default function ViewUserMenu() {
 
   useEffect(() => {
     axios
-      .get("http://127.0.0.1:5000/api/restdata")
+      .get(
+        `http://localhost:8090/api/getFullRestaurantInfo/${StoreValue.getRid()}`,
+        {
+          headers: StoreValue.getToken(),
+        }
+      )
       .then(function (response) {
-        setResponse(response.data);
+        setResponse(response.data.menus);
+        console.log(response.data);
         setItems(
           response.data.map((item) => ({ name: item.mitemName, quantity: 0 }))
         );
@@ -28,34 +35,56 @@ export default function ViewUserMenu() {
       });
   }, []);
 
-  const handleIncrement = (itemName) => {
-    const updatedItems = items.map((item) =>
-      item.name === itemName ? { ...item, quantity: item.quantity + 1 } : item
+  const handleIncrement = useCallback((itemName) => {
+    setItems((prevItems) =>
+      prevItems.map((item) =>
+        item.name === itemName ? { ...item, quantity: item.quantity + 1 } : item
+      )
     );
-    setItems(updatedItems);
-  };
+  }, []);
 
-  const handleDecrement = (itemName) => {
-    const updatedItems = items.map((item) =>
-      item.name === itemName && item.quantity > 0
-        ? { ...item, quantity: item.quantity - 1 }
-        : item
+  const handleDecrement = useCallback((itemName) => {
+    setItems((prevItems) =>
+      prevItems.map((item) =>
+        item.name === itemName && item.quantity > 0
+          ? { ...item, quantity: item.quantity - 1 }
+          : item
+      )
     );
-    setItems(updatedItems);
-  };
-
+  }, []);
+// TODO : Add axios post
   const handleSubmit = () => {
     const formattedItems = items
       .filter((item) => item.quantity > 0)
       .map((item) => `${item.name}*${item.quantity}`)
       .join("-");
-     alert("Selected items: " + formattedItems);
+      
+  const orderData = {
+    oitems: formattedItems,
+    ocost: Number(201),
+  };
+      axios
+      .post(
+        `placeOrder/${StoreValue.getRid()}`,
+        orderData,
+        {
+          headers: StoreValue.getToken(),
+        })
+        .then((response) => {
+          alert("Order placed successfully!");
+          console.log("Order response:", response.data);
+        })
+        .catch((error) => {
+          console.error("There was an error placing the order:", error);
+        });
+        console.log(orderData);
+      alert("Selected items: " + formattedItems);
   };
 
   return (
     <div className="pl-4 pb-4 pt-20 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 ">
       {response.map((item) => (
-        <Card key={item.id} sx={{ width: 320}}>
+        <Card key={item.mitemId} sx={{ width: 320 }}>
           <div>
             <Typography level="title-lg">{item.mitemName}</Typography>
           </div>
@@ -71,7 +100,7 @@ export default function ViewUserMenu() {
             <div className="">
               <Typography level="body-xs">Price:</Typography>
               <Typography fontSize="lg" fontWeight="lg">
-              &#8377; {item.mitemPrice}
+                &#8377; {item.mitemPrice}
               </Typography>
               <Typography level="body-xs">
                 Quantity:{" "}
@@ -102,7 +131,12 @@ export default function ViewUserMenu() {
         </Card>
       ))}
       <div className="fixed bottom-16 right-20 bg-nav rounded-md shadow-sm px-1 hover:scale-105">
-        <Button variant="contained" color="primary" size="lg" onClick={handleSubmit}>
+        <Button
+          variant="contained"
+          color="primary"
+          size="lg"
+          onClick={handleSubmit}
+        >
           Submit
         </Button>
       </div>

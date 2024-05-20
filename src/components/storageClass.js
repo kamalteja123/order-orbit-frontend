@@ -6,8 +6,17 @@ class StoreValue {
       this.resttoken = null;
       this.rid = null;
       this.useremail = null;
+      this.oid=null;
     }
   
+    setOid(newOid)
+    {
+      this.oid=newOid;
+    }
+    getOid()
+    {
+      return this.oid;
+    }
     setRestToken(newRestToken) {
       this.resttoken = newRestToken;
     }
