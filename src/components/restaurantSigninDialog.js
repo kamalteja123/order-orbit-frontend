@@ -22,10 +22,6 @@ function RestaurantSignInDialog() {
     } else {
       let siremail = document.getElementById("siremail").value;
       let sirpassword = document.getElementById("sirpassword").value;
-      setAlertval({
-        severity: "success",
-        message: "successfully logged in",
-      });
       try {
         const response = await axios.post(
           "http://localhost:8090/api/loginRestaurant",
@@ -34,13 +30,15 @@ function RestaurantSignInDialog() {
             password: sirpassword,
           }
         );
-        console.log(response.data.token);
         StoreValue.setRestToken(response.data.token);
-        console.log(response.data.message);
-        if (response.data.message === "Invalid password entered!!") {
-          throw new Error("Invalid password entered!!");
-        }else{
+        if (response.data.message === "Login Successful!") {
           navigate("/restaurantDashboard")
+          setAlertval({
+            severity: "success",
+            message: "successfully logged in",
+          });
+        }else{
+          alert(response.data.message);
         };        
       } catch (error) {
         console.error("Login failed:", error);

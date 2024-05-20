@@ -36,13 +36,19 @@ export default function AddMenuDialog() {
           mitemPrice: formData.mitemPrice,
           // Assuming this returns the authentication token
         };
-        // console.log(StoreValue.getRestToken());
-        // console.log(headers);
 
         const formDataToSend = new FormData();
         formDataToSend.append("img", formData.img);
-        // console.log(formDataToSend);
+
         await axios.post("/addMenuItem", formDataToSend, { headers });
+
+        // Reset the form data after successful addition
+        setFormData({
+          img: null,
+          mitemName: "",
+          mitemPrice: "",
+        });
+
         alert("Menu item added successfully");
       } catch (error) {
         console.error("Error adding menu item:", error);
@@ -66,6 +72,7 @@ export default function AddMenuDialog() {
           label="Item Name"
           name="mitemName"
           variant="filled"
+          value={formData.mitemName}
           onChange={handleChange}
         />
         <TextField
@@ -73,6 +80,7 @@ export default function AddMenuDialog() {
           label="Item Price"
           name="mitemPrice"
           variant="filled"
+          value={formData.mitemPrice}
           onChange={handleChange}
         />
         <input

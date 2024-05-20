@@ -19,7 +19,7 @@ export default function ViewUserMenu() {
       .get(
         `http://localhost:8090/api/getFullRestaurantInfo/${StoreValue.getRid()}`,
         {
-          headers: StoreValue.getToken(),
+          headers: { token: StoreValue.getJustUserToken() },
         }
       )
       .then((response) => {
@@ -75,7 +75,7 @@ export default function ViewUserMenu() {
     // Send orderData to the server
     axios
       .post(`/placeOrder/${StoreValue.getRid()}`, orderData, {
-        headers: StoreValue.getToken(),
+        headers: { token: StoreValue.getJustUserToken() },
       })
       .then((response) => {
         alert("Order placed successfully!");
@@ -83,7 +83,6 @@ export default function ViewUserMenu() {
       .catch((error) => {
         console.log("There was an error placing the order:", error);
       });
-    // alert("Order data: " + formattedItems + " " + totalCost);
   };
 
   return (
@@ -98,7 +97,7 @@ export default function ViewUserMenu() {
               src={item.mitemPhoto}
               srcSet="https://images.unsplash.com/photo-1527549993586-dff825b37782?auto=format&fit=crop&w=286&dpr=2 2x"
               loading="lazy"
-              alt="menu image"
+              alt={`image of ${item.mitemName}`}
             />
           </AspectRatio>
           <CardContent orientation="horizontal">

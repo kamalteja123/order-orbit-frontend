@@ -1,15 +1,23 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import StoreValue from "./storageClass";
+import { useNavigate } from "react-router-dom";
 
 function OTPDialog() {
+  const navigate = useNavigate();
     const validateOTPRequest = async (otp) => {
       try {
         const response = await axios.post("/verify-otp-customer",{
           email: StoreValue.getUserEmail(),
           otp: otp,
         });
-        console.log(response.data);
+        if(response.data.message === "OTP verified successfully"){
+          alert("OTP verified successfully");
+          StoreValue.setToken(response.data.token);
+          navigate("/resetPassword");
+        }else{
+          alert(response.data.message);
+        }
       } catch (error) {
         console.error(error);
       }
@@ -54,6 +62,9 @@ function OTPDialog() {
     // Reset the timer and hide the Resend button
     setTimer(60);
     setShowResend(false);
+
+    // Send a request to resend the OTP
+    
   };
 
   const handleValidateClick = () => {

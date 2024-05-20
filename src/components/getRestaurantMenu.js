@@ -4,13 +4,16 @@ import Card from '@mui/joy/Card';
 import CardCover from '@mui/joy/CardCover';
 import CardContent from '@mui/joy/CardContent';
 import Typography from '@mui/joy/Typography';
+import StoreValue from "./storageClass";
 import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
 
 function GetRestaurantMenu() {
   const [userData, setUserData] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/data')
+    axios.get('/getAllMenuItems', {
+      headers: StoreValue.getRestToken(),
+    })
       .then(function (response) {
         setUserData(response.data);
         console.log(response.data)

@@ -34,7 +34,7 @@ function UserSignUpDialog() {
       try {
         await axios.post("/resgisterCustomer", formData);
         alert("Registration successful");
-        navigate("/home");
+        navigate("/usersignin");
       } catch (error) {
         console.error("Registration failed:", error);
       }

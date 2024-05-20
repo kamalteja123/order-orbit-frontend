@@ -48,6 +48,12 @@ class StoreValue {
     getToken() {
       return "token:"+this.token;
     }
+    getJustRestToken() {
+      return this.resttoken;
+    }
+    getJustUserToken() {
+      return this.token;
+    }
   }
   
   export default new StoreValue();

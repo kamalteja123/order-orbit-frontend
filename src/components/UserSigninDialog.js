@@ -22,17 +22,21 @@ function UserSignInDialog() {
     } else {
       let siuemail = document.getElementById("siuemail").value;
       let siupassword = document.getElementById("siupassword").value;
-      setAlertval({
-        severity: "success",
-        message: "successfully logged in",
-      })
       try {
         const response = await axios.post("/loginCustomer", {
           email: siuemail,
           password: siupassword,
         });
         StoreValue.setToken(response.data.token);
-        navigate("/userDashboard");
+        if(response.data.message === "Login Successful!"){
+          navigate("/userDashboard");
+          setAlertval({
+            severity: "success",
+            message: "successfully logged in",
+          })
+        }else{
+          alert(response.data.message);
+        }
       } catch (error) {
         console.error("Login failed:", error);
       }

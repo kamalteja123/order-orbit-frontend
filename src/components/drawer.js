@@ -11,27 +11,27 @@ import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
-import Dummy from "./dummy";
+import UserLogoutMenu from "./userLogoutMenu";
 import ViewOrder from "./viewOrdesDialog";
 import UpdateMenuDialog from "./updateMenuDialog";
 import AddMenuDialog from "./addMenuDialog";
-import { useNavigate } from "react-router-dom";
+import DeleteMenuDialog from "./deleteMenuDialog";
+import ViewPreviousOrder from "./previousOrders";
 
-const drawerWidth = 200;
+const drawerWidth = 250;
 
 export default function PermanentDrawerLeft() {
   const [selected, setSelected] = useState("");
-  const navigate = useNavigate();
   const options = [
     { option: "View orders", icon: "View_cozy" },
     { option: "Add item", icon: "docs_add_on" },
     { option: "Update menu", icon: "border_color" },
     { option: "Delete menu item", icon: "Delete" },
+    { option: "View Previous Orders", icon: "inventory" },
   ];
 
   function handleClick(event) {
     setSelected(event.currentTarget.innerText);
-    console.log(selected);
   }
   return (
     <Box sx={{ display: "flex" }}>
@@ -43,9 +43,8 @@ export default function PermanentDrawerLeft() {
         <Toolbar className="nav-color text-black">
           <Typography variant="h6" noWrap component="div">
             Restaurant Dashboard
-            <span onClick={() => navigate("/home")} className=" absolute right-12 top-1/2 -translate-y-1/2 text-black material-symbols-outlined hover:scale-105">
-              {" "}
-              logout
+            <span className=" absolute right-12 top-1/2 -translate-y-1/2 hover:cursor-pointer text-black material-symbols-outlined hover:scale-105">
+              <UserLogoutMenu />
             </span>
           </Typography>
         </Toolbar>
@@ -92,7 +91,9 @@ export default function PermanentDrawerLeft() {
         ) : selected === options[2].option ? (
           <UpdateMenuDialog />
         ) : selected === options[3].option ? (
-          <ViewOrder />
+          <DeleteMenuDialog />
+        ) : selected === options[4].option ? (
+          <ViewPreviousOrder />
         ) : (
           <></>
         )}
