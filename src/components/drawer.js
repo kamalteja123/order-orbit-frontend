@@ -15,15 +15,17 @@ import Dummy from "./dummy";
 import ViewOrder from "./viewOrdesDialog";
 import UpdateMenuDialog from "./updateMenuDialog";
 import AddMenuDialog from "./addMenuDialog";
+import { useNavigate } from "react-router-dom";
 
 const drawerWidth = 200;
 
 export default function PermanentDrawerLeft() {
   const [selected, setSelected] = useState("");
+  const navigate = useNavigate();
   const options = [
     { option: "View orders", icon: "View_cozy" },
-    { option: "Add item", icon: "add" },
-    { option: "Update menu", icon: "Edit" },
+    { option: "Add item", icon: "docs_add_on" },
+    { option: "Update menu", icon: "border_color" },
     { option: "Delete menu item", icon: "Delete" },
   ];
 
@@ -41,7 +43,7 @@ export default function PermanentDrawerLeft() {
         <Toolbar className="nav-color text-black">
           <Typography variant="h6" noWrap component="div">
             Restaurant Dashboard
-            <span className=" absolute right-12 top-1/2 -translate-y-1/2 text-black material-symbols-outlined hover:scale-105">
+            <span onClick={() => navigate("/home")} className=" absolute right-12 top-1/2 -translate-y-1/2 text-black material-symbols-outlined hover:scale-105">
               {" "}
               logout
             </span>
@@ -90,7 +92,7 @@ export default function PermanentDrawerLeft() {
         ) : selected === options[2].option ? (
           <UpdateMenuDialog />
         ) : selected === options[3].option ? (
-          <Dummy />
+          <ViewOrder />
         ) : (
           <></>
         )}

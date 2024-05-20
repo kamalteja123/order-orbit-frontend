@@ -37,6 +37,7 @@ function SearchBox() {
       .querySelectorAll("input")[0].value;
     const rid = findIdByName(restName);
     StoreValue.setRid(rid);
+    console.log(StoreValue.getRid());
     navigate("/userorders");
   };
 

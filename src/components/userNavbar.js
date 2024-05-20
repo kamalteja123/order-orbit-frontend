@@ -37,13 +37,13 @@ function UserNavbar() {
             Welcome!
           </div>
           <div className="mx-2 flex row-auto">
-            <div
+            {/* <div
               onClick={handleclick}
               id="previousorder"
               className=" text-black rounded-md hover:cursor-pointer hover:scale-105"
             >
               previous_orders
-            </div>
+            </div> */}
             <div className="ml-4">
               <UserLogoutMenu />
             </div>
