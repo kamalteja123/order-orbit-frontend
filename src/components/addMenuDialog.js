@@ -22,15 +22,19 @@ export default function AddMenuDialog() {
 
   const handleAdd = async (e) => {
     e.preventDefault();
-    if (formData.mitemName === "" || formData.mitemPrice === "" || formData.img === null) {
+    if (
+      formData.mitemName === "" ||
+      formData.mitemPrice === "" ||
+      formData.img === null
+    ) {
       alert("All fields are mandatory");
     } else {
       try {
         const headers = {
-          token :StoreValue.getRestToken(),
+          token: StoreValue.getRestToken(),
           mitemName: formData.mitemName,
           mitemPrice: formData.mitemPrice,
-           // Assuming this returns the authentication token
+          // Assuming this returns the authentication token
         };
         // console.log(StoreValue.getRestToken());
         // console.log(headers);
@@ -55,7 +59,7 @@ export default function AddMenuDialog() {
         }}
         noValidate
         autoComplete="off"
-        className=" flex col-auto"
+        className="flex flex-col items-center"
       >
         <TextField
           id="add-name"
@@ -64,18 +68,20 @@ export default function AddMenuDialog() {
           variant="filled"
           onChange={handleChange}
         />
-        <input
-          type="file"
-          id="add-img"
-          name="img"
-          onChange={handleFileChange}
-        />
         <TextField
           id="add-price"
           label="Item Price"
           name="mitemPrice"
           variant="filled"
           onChange={handleChange}
+        />
+        <input
+          className="mt-4"
+          type="file"
+          id="add-img"
+          name="img"
+          accept="image/*"
+          onChange={handleFileChange}
         />
       </Box>
       <button

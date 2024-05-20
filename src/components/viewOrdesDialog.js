@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import Card from '@mui/joy/Card';
-import CardContent from '@mui/joy/CardContent';
-import Typography from '@mui/joy/Typography';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import Card from "@mui/joy/Card";
+import CardContent from "@mui/joy/CardContent";
+import Typography from "@mui/joy/Typography";
 import StoreValue from "./storageClass";
 
 function ViewOrder() {
@@ -14,13 +14,16 @@ function ViewOrder() {
         const headers = {
           token: StoreValue.getRestToken(),
         };
-        const response = await axios.get("http://localhost:8090/api/ordersAtRestaurantDashboard", { headers });
+        const response = await axios.get(
+          "http://localhost:8090/api/ordersAtRestaurantDashboard",
+          { headers }
+        );
 
         // Log response data
         console.log(response.data);
 
         // Store each order ID in StoreValue
-        response.data.forEach(order => {
+        response.data.forEach((order) => {
           StoreValue.setOid(order.oid);
         });
 
@@ -35,36 +38,47 @@ function ViewOrder() {
   }, []);
 
   const handleComplete = async (orderId) => {
-    
     try {
-      await axios.put(`http://localhost:8090/api/updateOStatusToCompleted/${StoreValue.getOid()}`, {}, {
-      headers: {
-        token: StoreValue.getRestToken(),
-      },
-    });
-    console.log(StoreValue.getOid());
-    console.log(StoreValue.getRestToken());
+      await axios.put(
+        `http://localhost:8090/api/updateOStatusToCompleted/${StoreValue.getOid()}`,
+        {},
+        {
+          headers: {
+            token: StoreValue.getRestToken(),
+          },
+        }
+      );
+      console.log(StoreValue.getOid());
+      console.log(StoreValue.getRestToken());
       // Update the order status in the frontend
-      setUserData(prevData => 
-        prevData.map(order => 
-          order.oid === orderId ? { ...order, ostatus: 'COMPLETED' } : order
+      setUserData((prevData) =>
+        prevData.map((order) =>
+          order.oid === orderId ? { ...order, ostatus: "COMPLETED" } : order
         )
       );
     } catch (error) {
-      console.error('Error updating order status:', error);
+      console.error("Error updating order status:", error);
     }
   };
 
   return (
-    <div className='absolute top-16 text-center z-50' id='comp'>
+    <div className="absolute top-16 text-center z-50" id="comp">
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-4 gap-4">
-        {userData.map(user => (
-          <Card key={user.oid} sx={{ minHeight: '280px', width: 250 }}>
-            <CardContent sx={{ justifyContent: 'flex-end' }}>
-              <Typography level="title-lg" textColor="#000" className="text-left">
+        {userData.map((user) => (
+          <Card key={user.oid} sx={{ minHeight: "280px", width: 250 }}>
+            <CardContent sx={{ justifyContent: "flex-end" }}>
+              <Typography
+                level="title-lg"
+                textColor="#000"
+                className="text-left"
+              >
                 Customer Name: {user.cname}
               </Typography>
-              <Typography level="body1" textColor={user.ostatus === 'COMPLETED' ? 'blue' : 'green'} className="text-left">
+              <Typography
+                level="body1"
+                textColor={user.ostatus === "COMPLETED" ? "blue" : "green"}
+                className="text-left"
+              >
                 Status: {user.ostatus}
               </Typography>
               <Typography level="body1" textColor="#000" className="text-left">
@@ -78,8 +92,8 @@ function ViewOrder() {
                   </tr>
                 </thead>
                 <tbody>
-                  {user.oitems.split('-').map((item, idx) => {
-                    const [name, quantity] = item.split('*');
+                  {user.oitems.split("-").map((item, idx) => {
+                    const [name, quantity] = item.split("*");
                     return (
                       <tr key={idx}>
                         <td className="border px-4 py-2">{name}</td>
@@ -89,7 +103,7 @@ function ViewOrder() {
                   })}
                 </tbody>
               </table>
-              {user.ostatus !== 'COMPLETED' && (
+              {user.ostatus !== "COMPLETED" && (
                 <button
                   onClick={() => handleComplete(user.oid)}
                   className="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md"

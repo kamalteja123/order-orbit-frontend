@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "../components/navbar";
-import UserSignInDialog from "../components/UserSigninDialog";
+import UserSignInDialog from "../components/userSigninDialog";
 import CloseIcon from "../components/closeIcon";
 
 function UserSignin() {

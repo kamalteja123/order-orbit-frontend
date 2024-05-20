@@ -42,12 +42,10 @@ class StoreValue {
     }
   
     setToken(newToken) {
-      console.log("token:"+newToken)
       this.token = newToken;
     }
   
     getToken() {
-        console.log("token:"+this.token)
       return "token:"+this.token;
     }
   }

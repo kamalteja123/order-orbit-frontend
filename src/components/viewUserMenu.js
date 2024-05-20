@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import AspectRatio from "@mui/joy/AspectRatio";
 import Button from "@mui/joy/Button";
 import Card from "@mui/joy/Card";
@@ -6,7 +6,6 @@ import CardContent from "@mui/joy/CardContent";
 import IconButton from "@mui/joy/IconButton";
 import Typography from "@mui/joy/Typography";
 import StoreValue from "./storageClass";
-import BookmarkAdd from "@mui/icons-material/BookmarkAddOutlined";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import axios from "axios";
@@ -23,15 +22,17 @@ export default function ViewUserMenu() {
           headers: StoreValue.getToken(),
         }
       )
-      .then(function (response) {
+      .then((response) => {
         setResponse(response.data.menus);
-        console.log(response.data);
         setItems(
-          response.data.map((item) => ({ name: item.mitemName, quantity: 0 }))
+          response.data.menus.map((item) => ({
+            name: item.mitemName,
+            quantity: 0,
+          }))
         );
       })
-      .catch(function (error) {
-        console.log(error);
+      .catch((error) => {
+        console.error("Error fetching menu data:", error);
       });
   }, []);
 
@@ -52,37 +53,41 @@ export default function ViewUserMenu() {
       )
     );
   }, []);
-// TODO : Add axios post
+
   const handleSubmit = () => {
+    let totalCost = 0;
     const formattedItems = items
       .filter((item) => item.quantity > 0)
-      .map((item) => `${item.name}*${item.quantity}`)
+      .map((item) => {
+        const menuItem = response.find(
+          (menuItem) => menuItem.mitemName === item.name
+        );
+        totalCost += menuItem.mitemPrice * item.quantity;
+        return `${item.name}*${item.quantity}`;
+      })
       .join("-");
-      
-  const orderData = {
-    oitems: formattedItems,
-    ocost: Number(201),
-  };
-      axios
-      .post(
-        `placeOrder/${StoreValue.getRid()}`,
-        orderData,
-        {
-          headers: StoreValue.getToken(),
-        })
-        .then((response) => {
-          alert("Order placed successfully!");
-          console.log("Order response:", response.data);
-        })
-        .catch((error) => {
-          console.error("There was an error placing the order:", error);
-        });
-        console.log(orderData);
-      alert("Selected items: " + formattedItems);
+
+    const orderData = {
+      oitems: formattedItems,
+      ocost: totalCost, // Ensure ocost is a string
+    };
+
+    // Send orderData to the server
+    axios
+      .post(`/placeOrder/${StoreValue.getRid()}`, orderData, {
+        headers: StoreValue.getToken(),
+      })
+      .then((response) => {
+        alert("Order placed successfully!");
+      })
+      .catch((error) => {
+        console.log("There was an error placing the order:", error);
+      });
+    // alert("Order data: " + formattedItems + " " + totalCost);
   };
 
   return (
-    <div className="pl-4 pb-4 pt-20 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 ">
+    <div className="pl-4 pb-4 pt-20 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
       {response.map((item) => (
         <Card key={item.mitemId} sx={{ width: 320 }}>
           <div>
@@ -97,7 +102,7 @@ export default function ViewUserMenu() {
             />
           </AspectRatio>
           <CardContent orientation="horizontal">
-            <div className="">
+            <div>
               <Typography level="body-xs">Price:</Typography>
               <Typography fontSize="lg" fontWeight="lg">
                 &#8377; {item.mitemPrice}

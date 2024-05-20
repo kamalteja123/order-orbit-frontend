@@ -20,7 +20,7 @@ export default function UpdateMenuDialog() {
     setFormData({ ...formData, img: e.target.files[0] });
   };
 
-  const handleAdd = async (e) => {
+  const handleUpdate = async (e) => {
     e.preventDefault();
     if (formData.mitemName === "" || formData.mitemPrice === "" || formData.img === null) {
       alert("All fields are mandatory");
@@ -52,7 +52,7 @@ export default function UpdateMenuDialog() {
         }}
         noValidate
         autoComplete="off"
-        className=" flex col-auto"
+        className="flex flex-col items-center"
       >
         <TextField
           id="add-name"
@@ -61,12 +61,6 @@ export default function UpdateMenuDialog() {
           variant="filled"
           onChange={handleChange}
         />
-        <input
-          type="file"
-          id="add-img"
-          name="img"
-          onChange={handleFileChange}
-        />
         <TextField
           id="add-price"
           label="Item Price"
@@ -74,9 +68,16 @@ export default function UpdateMenuDialog() {
           variant="filled"
           onChange={handleChange}
         />
+        <input
+          type="file"
+          id="add-img"
+          name="img"
+          accept="image/*"
+          onChange={handleFileChange}
+        />
       </Box>
       <button
-        onClick={handleAdd}
+        onClick={handleUpdate}
         className="absolute bg-nav text-black right-20 bottom-20 rounded-md hover:scale-105 py-1 px-2"
       >
         Update
