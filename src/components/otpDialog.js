@@ -16,7 +16,7 @@ function OTPDialog() {
           StoreValue.setToken(response.data.token);
           navigate("/resetPassword");
         }else{
-          alert(response.data.message);
+          alert(response.data);
         }
       } catch (error) {
         console.error(error);
@@ -74,7 +74,6 @@ function OTPDialog() {
       .join("");
     if (otp.length === 6) {
       validateOTPRequest(otp);
-      console.log("OTP:", otp);
     }
   };
 
