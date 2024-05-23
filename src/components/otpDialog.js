@@ -88,23 +88,57 @@ function OTPDialog(role) {
         document.getElementById("fpnewpassword").value ===
         document.getElementById("fpconfirmpassword").value
       ) {
-        axios
-          .post(`reset-password-${role.role}`, {Headers},{
-            email: StoreValue.getUserEmail(),
-            password: document.getElementById("fpnewpassword").value,
-          })
-          .then((response) => {
-            alert(response.data);
-            console.log("role at navigate"+role.role);
-            if(role.role==="customer"){
-              navigate("/usersignin");
-            } else {
-              navigate("/restaruntsignin");
-            }
-          })
-          .catch((error) => {
-            alert(error.response.data);
-          });
+        if (role.role === "customer") {
+          axios
+            .post(
+              `reset-password-${role.role}`,
+              { Headers: { token: StoreValue.getJustToken() } },
+              {
+                cemail: StoreValue.getUserEmail(),
+                cpassword: document.getElementById("fpnewpassword").value,
+              }
+            )
+            .then((response) => {
+              console.log(response.data);
+              alert(response.data);
+              console.log("role at navigate" + role.role);
+              if (role.role === "customer") {
+                navigate("/usersignin");
+              } else {
+                navigate("/restaruntsignin");
+              }
+            })
+            .catch((error) => {
+              alert(error.response.data);
+            });
+        } else {
+          console.log("role at reset" + role.role);
+          console.log(StoreValue.getToken());
+          axios
+            .post(
+              `reset-password-${role.role}`,
+              { Headers: { token: StoreValue.getJustToken() } },
+              {
+                remail: StoreValue.getUserEmail(),
+                rpassword: document.getElementById("fpnewpassword").value,
+              }
+            )
+            .then((response) => {
+              console.log(response.data);
+              alert(response.data);
+              console.log("role at navigate" + role.role);
+              if (role.role === "customer") {
+                navigate("/usersignin");
+              } else {
+                navigate("/restaruntsignin");
+              }
+            })
+            .catch((error) => {
+              alert(error.response.data);
+            });
+        }
+      } else {
+        alert("passwords do not match");
       }
     }
   }
@@ -156,49 +190,49 @@ function OTPDialog(role) {
         <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50">
           <div className="bg-white p-8 rounded-lg shadow-md w-80">
             <h2 className="text-xl font-semibold mb-4">Reset Password</h2>
-              <div className="mb-4">
-                <label
-                  htmlFor="newpassword"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  New password
-                </label>
-                <input
-                  type="password"
-                  id="fpnewpassword"
-                  name="newpassword"
-                  placeholder="Enter New password"
-                  className="mt-1 px-4 py-2 w-full border rounded-md mb-4"
-                />
-                <label
-                  htmlFor="newpassword"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Confirm password
-                </label>
-                <input
-                  type="password"
-                  id="fpconfirmpassword"
-                  name="confirmpassword"
-                  placeholder="Confirm New password"
-                  className="mt-1 px-4 py-2 w-full border rounded-md"
-                />
-              </div>
-              <div className="flex justify-between items-center">
-                <button
-                  onClick={handleResetPassword}
-                  className="bg-blue-500 text-white px-6 py-2 rounded-md"
-                >
-                  Reset Password
-                </button>
-                <button
-                  type="button"
-                  className="text-sm text-gray-600"
-                  onClick={() => navigate("/home")}
-                >
-                  Cancel
-                </button>
-              </div>
+            <div className="mb-4">
+              <label
+                htmlFor="newpassword"
+                className="block text-sm font-medium text-gray-700"
+              >
+                New password
+              </label>
+              <input
+                type="password"
+                id="fpnewpassword"
+                name="newpassword"
+                placeholder="Enter New password"
+                className="mt-1 px-4 py-2 w-full border rounded-md mb-4"
+              />
+              <label
+                htmlFor="newpassword"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Confirm password
+              </label>
+              <input
+                type="password"
+                id="fpconfirmpassword"
+                name="confirmpassword"
+                placeholder="Confirm New password"
+                className="mt-1 px-4 py-2 w-full border rounded-md"
+              />
+            </div>
+            <div className="flex justify-between items-center">
+              <button
+                onClick={handleResetPassword}
+                className="bg-blue-500 text-white px-6 py-2 rounded-md"
+              >
+                Reset Password
+              </button>
+              <button
+                type="button"
+                className="text-sm text-gray-600"
+                onClick={() => navigate("/home")}
+              >
+                Cancel
+              </button>
+            </div>
           </div>
         </div>
       )}
