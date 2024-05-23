@@ -4,11 +4,10 @@ import StoreValue from "./storageClass";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-function ForgotPasswordDialog() {
+function ForgotPasswordDialog(role) {
   const [showOTP, setShowOTP] = useState(false);
   const [userEmail, setUserEmail] = useState("");
   const navigate = useNavigate();
-
   const requestOTP = async () => {
     try {
       const response = await axios.post("/request-otp", {
@@ -57,7 +56,7 @@ function ForgotPasswordDialog() {
                   onClick={(e) => handleClick(e)}
                   className="bg-blue-500 text-white px-6 py-2 rounded-md"
                 >
-                  Reset Password
+                  Send OTP
                 </button>
                 <button
                   type="button"
@@ -71,7 +70,7 @@ function ForgotPasswordDialog() {
           </div>
         </div>
       ) : (
-        <OTPDialog />
+        <OTPDialog role={role.role}/>
       )}
     </div>
   );

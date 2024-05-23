@@ -81,7 +81,7 @@ function UserSignInDialog() {
           </div>
           <div className="flex justify-between items-center">
             <a
-              href="/forgotpassword"
+              href="/userforgotpassword"
               className="text-blue-500 font-semibold pr-40"
             >
               Forgot Password?

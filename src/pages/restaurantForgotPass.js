@@ -5,14 +5,14 @@ import Footer from '../components/footer';
 
 
 
-function ForgotPassword(){
+function RestaurantForgotPassword(){
     return (
     <div>
       <Navbar/>
-      <ForgotPassDialog />           
+      <ForgotPassDialog role="restaurent"/>           
       <Footer/>
     </div>
     );
 }
 
-export default ForgotPassword;
+export default RestaurantForgotPassword;
