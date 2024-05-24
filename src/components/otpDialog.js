@@ -92,46 +92,38 @@ function OTPDialog(role) {
           axios
             .post(
               `reset-password-${role.role}`,
-              { Headers: { token: StoreValue.getJustToken() } },
               {
                 cemail: StoreValue.getUserEmail(),
                 cpassword: document.getElementById("fpnewpassword").value,
+              },
+              {
+                headers: { token: StoreValue.getJustToken() },
               }
             )
             .then((response) => {
               console.log(response.data);
               alert(response.data);
-              console.log("role at navigate" + role.role);
-              if (role.role === "customer") {
-                navigate("/usersignin");
-              } else {
-                navigate("/restaruntsignin");
-              }
+              navigate("/usersignin");
             })
             .catch((error) => {
               alert(error.response.data);
             });
         } else {
-          console.log("role at reset" + role.role);
-          console.log(StoreValue.getToken());
           axios
             .post(
               `reset-password-${role.role}`,
-              { Headers: { token: StoreValue.getJustToken() } },
               {
                 remail: StoreValue.getUserEmail(),
                 rpassword: document.getElementById("fpnewpassword").value,
+              },
+              {
+                headers: { token: StoreValue.getJustToken() },
               }
             )
             .then((response) => {
               console.log(response.data);
               alert(response.data);
-              console.log("role at navigate" + role.role);
-              if (role.role === "customer") {
-                navigate("/usersignin");
-              } else {
-                navigate("/restaruntsignin");
-              }
+              navigate("/restaurantsignin");
             })
             .catch((error) => {
               alert(error.response.data);
