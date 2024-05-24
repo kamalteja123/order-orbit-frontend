@@ -39,7 +39,7 @@ function RestaurantSignUpDialog() {
           formData
         );
         console.log("Registration successful:", response.data);
-        navigate("/home");
+        navigate("/restaurantsignin");
       } catch (error) {
         console.error("Registration failed:", error);
       }
