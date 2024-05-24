@@ -15,7 +15,7 @@ function ViewPreviousOrder() {
           token: StoreValue.getJustRestToken(),
         };
         const response = await axios.get(
-          "http://localhost:8090/api/getallorders",
+          "http://localhost:8090/api/ordersAtRestaurantDashboard",
           { headers }
         );
 
