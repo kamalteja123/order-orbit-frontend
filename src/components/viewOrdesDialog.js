@@ -14,10 +14,9 @@ function ViewOrder() {
         const headers = {
           token: StoreValue.getJustRestToken(),
         };
-        const response = await axios.get(
-          "http://localhost:8090/api/ordersAtRestaurantDashboard",
-          { headers }
-        );
+        const response = await axios.get("/ordersAtRestaurantDashboard", {
+          headers,
+        });
 
         // Set userData with response data
         setUserData(response.data);
@@ -32,7 +31,7 @@ function ViewOrder() {
   const handleComplete = async (orderId) => {
     try {
       await axios.put(
-        `http://localhost:8090/api/updateOStatusToCompleted/${orderId}`,
+        `updateOStatusToCompleted/${orderId}`,
         {},
         {
           headers: {
@@ -74,7 +73,11 @@ function ViewOrder() {
                 >
                   Status: {user.ostatus}
                 </Typography>
-                <Typography level="body1" textColor="#000" className="text-left">
+                <Typography
+                  level="body1"
+                  textColor="#000"
+                  className="text-left"
+                >
                   Order Items:
                 </Typography>
                 <table className="table-auto w-full mt-2">

@@ -8,17 +8,17 @@ import BasicAlerts from "./alert";
 function UserSignInDialog() {
   const [alertval, setAlertval] = useState(null);
   const navigate = useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (
       document.getElementById("siupassword").value === "" ||
       document.getElementById("siuemail").value === ""
     ) {
-      alert("email and password cannot be empty");
       setAlertval({
         severity: "error",
-        message: "email and password cannot be empty",
-      })
+        message: "Email and password cannot be empty",
+      });
     } else {
       let siuemail = document.getElementById("siuemail").value;
       let siupassword = document.getElementById("siupassword").value;
@@ -27,21 +27,30 @@ function UserSignInDialog() {
           email: siuemail,
           password: siupassword,
         });
-        StoreValue.setToken(response.data.token);
-        if(response.data.message === "Login Successful!"){
-          navigate("/userDashboard");
+
+        if (response.data.message === "Login Successful!") {
+          StoreValue.setToken(response.data.token);
           setAlertval({
             severity: "success",
-            message: "successfully logged in",
-          })
-        }else{
-          alert(response.data.message);
+            message: "Successfully logged in",
+          });
+          navigate("/userDashboard");
+        } else {
+          setAlertval({
+            severity: "error",
+            message: response.data.message,
+          });
         }
       } catch (error) {
         console.error("Login failed:", error);
+        setAlertval({
+          severity: "error",
+          message: "Invalid email or password entered",
+        });
       }
     }
   };
+
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-40">
       <CloseIcon />
@@ -87,7 +96,7 @@ function UserSignInDialog() {
               Forgot Password?
             </a>
             <button
-              onClick={handleSubmit}
+              type="submit"
               className="bg-blue-500 text-white px-6 py-2 rounded-md"
             >
               Sign In

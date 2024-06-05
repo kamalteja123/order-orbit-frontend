@@ -14,10 +14,9 @@ function ViewPreviousOrder() {
         const headers = {
           token: StoreValue.getJustRestToken(),
         };
-        const response = await axios.get(
-          "http://localhost:8090/api/ordersAtRestaurantDashboard",
-          { headers }
-        );
+        const response = await axios.get("/ordersAtRestaurantDashboard", {
+          headers,
+        });
 
         // Filter orders with status "COMPLETED"
         const completedOrders = response.data.filter(

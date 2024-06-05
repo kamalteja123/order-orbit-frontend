@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 function RestaurantSignInDialog() {
   const [alertval, setAlertval] = useState(null);
   const navigate = useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (
@@ -17,34 +18,39 @@ function RestaurantSignInDialog() {
       alert("email and password cannot be empty");
       setAlertval({
         severity: "error",
-        message: "email and password cannot be empty",
+        message: "Email and password cannot be empty",
       });
     } else {
       let siremail = document.getElementById("siremail").value;
       let sirpassword = document.getElementById("sirpassword").value;
       try {
-        const response = await axios.post(
-          "http://localhost:8090/api/loginRestaurant",
-          {
-            email: siremail,
-            password: sirpassword,
-          }
-        );
-        StoreValue.setRestToken(response.data.token);
+        const response = await axios.post("/loginRestaurant", {
+          email: siremail,
+          password: sirpassword,
+        });
         if (response.data.message === "Login Successful!") {
-          navigate("/restaurantDashboard")
+          StoreValue.setRestToken(response.data.token);
+          navigate("/restaurantDashboard");
           setAlertval({
             severity: "success",
-            message: "successfully logged in",
+            message: "Successfully logged in",
           });
-        }else{
-          alert(response.data.message);
-        };        
+        } else {
+          setAlertval({
+            severity: "error",
+            message: response.data.message,
+          });
+        }
       } catch (error) {
         console.error("Login failed:", error);
+        setAlertval({
+          severity: "error",
+          message: "Invalid email or password entered",
+        });
       }
     }
   };
+
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-40">
       <CloseIcon />
@@ -90,7 +96,7 @@ function RestaurantSignInDialog() {
               Forgot Password?
             </a>
             <button
-              onClick={handleSubmit}
+              type="submit"
               className="bg-blue-500 text-white px-6 py-2 rounded-md"
             >
               Sign In

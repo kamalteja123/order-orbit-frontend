@@ -17,12 +17,9 @@ export default function DeleteMenuDialog() {
 
   const fetchMenuItems = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:8090/api/getAllMenuItems",
-        {
-          headers: { token: StoreValue.getJustRestToken() },
-        }
-      );
+      const response = await axios.get("/getAllMenuItems", {
+        headers: { token: StoreValue.getJustRestToken() },
+      });
       setMenuItems(response.data);
     } catch (error) {
       console.log("Error fetching menu items:", error);

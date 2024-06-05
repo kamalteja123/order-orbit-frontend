@@ -21,7 +21,7 @@ export default function UpdateMenuDialog() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8090/api/getAllMenuItems", {
+      .get("/getAllMenuItems", {
         headers: { token: StoreValue.getJustRestToken() },
       })
       .then(function (response) {

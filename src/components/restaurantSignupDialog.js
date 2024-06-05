@@ -1,4 +1,4 @@
-import React ,{useState} from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -9,7 +9,7 @@ function RestaurantSignUpDialog() {
     remail: "",
     rphoneNum: "",
     rpassword: "",
-    raddress:""
+    raddress: "",
   });
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -23,7 +23,7 @@ function RestaurantSignUpDialog() {
       document.getElementById("suremail").value === "" ||
       document.getElementById("surphonenumber").value === "" ||
       document.getElementById("surpassword").value === "" ||
-      document.getElementById("surconfirmPassword").value === ""||
+      document.getElementById("surconfirmPassword").value === "" ||
       document.getElementById("suraddress").value === ""
     ) {
       alert("all fields are mandatory");
@@ -34,10 +34,7 @@ function RestaurantSignUpDialog() {
       alert("Passwords do not match");
     } else {
       try {
-        const response = await axios.post(
-          "http://localhost:8090/api/resgisterRestaurant",
-          formData
-        );
+        const response = await axios.post("/resgisterRestaurant", formData);
         console.log("Registration successful:", response.data);
         navigate("/restaurantsignin");
       } catch (error) {
@@ -55,7 +52,7 @@ function RestaurantSignUpDialog() {
               htmlFor="name"
               className="block text-sm font-medium text-gray-700"
             >
-             Restaurant Name
+              Restaurant Name
             </label>
             <input
               type="text"
@@ -72,13 +69,13 @@ function RestaurantSignUpDialog() {
               htmlFor="email"
               className="block text-sm font-medium text-gray-700"
             >
-             Restaurant Email
+              Restaurant Email
             </label>
             <input
               type="email"
               id="suremail"
               name="remail"
-              onChange={handleChange} 
+              onChange={handleChange}
               value={formData.remail}
               placeholder="Enter email"
               className="mt-1 px-4 py-2 w-full border rounded-md"
@@ -96,7 +93,7 @@ function RestaurantSignUpDialog() {
               type="address"
               id="suraddress"
               name="raddress"
-              onChange={handleChange} 
+              onChange={handleChange}
               value={formData.raddress}
               placeholder="Enter Address"
               className="mt-1 px-4 py-2 w-full border rounded-md"
@@ -108,7 +105,7 @@ function RestaurantSignUpDialog() {
               htmlFor="phonenumber"
               className="block text-sm font-medium text-gray-700"
             >
-             Restaurant Phone Number
+              Restaurant Phone Number
             </label>
             <input
               type="phonenumber"
@@ -134,7 +131,7 @@ function RestaurantSignUpDialog() {
                 id="surpassword"
                 name="rpassword"
                 onChange={handleChange}
-                 value={formData.rpassword}
+                value={formData.rpassword}
                 placeholder="Enter password"
                 className="mt-1 px-4 py-2 w-full border rounded-md"
               />

@@ -16,12 +16,9 @@ export default function ViewUserMenu() {
 
   useEffect(() => {
     axios
-      .get(
-        `http://localhost:8090/api/getFullRestaurantInfo/${StoreValue.getRid()}`,
-        {
-          headers: { token: StoreValue.getJustUserToken() },
-        }
-      )
+      .get(`/getFullRestaurantInfo/${StoreValue.getRid()}`, {
+        headers: { token: StoreValue.getJustUserToken() },
+      })
       .then((response) => {
         setResponse(response.data.menus);
         setItems(
