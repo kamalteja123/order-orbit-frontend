@@ -1,4 +1,3 @@
-# Use an official Node.js runtime as the base image
 FROM node:16-alpine
 
 # Set the working directory
@@ -8,14 +7,16 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install dependencies
-RUN npm install -g serve
+RUN npm install
 
 # Copy the rest of the application code
 COPY . .
 
-RUN npm install
 # Build the React application
 RUN npm run build
+
+# Install serve to serve the build folder
+RUN npm install -g serve
 
 # Expose the port the app runs on
 EXPOSE 3000
